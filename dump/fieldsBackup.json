@@ -1,0 +1,26 @@
+{
+  "1": {"display":"DisplayName","name":"name","html_type":"html type","migration_type":"migration type","nullable":"yes","default":"defaultValue"},
+  "2": {"display":"DisplayName2","name":"name2","html_type":"html type2","migration_type":"migration type2","nullable":"yes","default":"defaultValue2"},
+  "3": {"display":"DisplayName3","name":"name3","html_type":"html type3","migration_type":"migration type3","nullable":"yes","default":"defaultValue3"},
+  "4": {"display":"DisplayName4","name":"name4","html_type":"html type4","migration_type":"migration type4","nullable":"yes","default":"defaultValue4"}
+
+}
+
+
+segunda versao
+
+
+
+
+{
+	"table_name":"Employees",
+	"singular":"employee",
+	"plural":"employees",
+	"fields":[
+			{"id":1,"display_name":"myDisplayName1","html_name":"html_name1","html_type":"text","migration_type":"varchar","nullable":"yes1","default":"deafult1"},
+			{"id":2,"display_name":"myDisplayName2","html_name":"html_name2","html_type":"checkbox","migration_type":"integer","nullable":"yes2","default":"deafult2"},
+			{"id":3,"display_name":"myDisplayName3","html_name":"html_name3","html_type":"password","migration_type":"date","nullable":"yes3","default":"deafult3"}
+    	]
+}
+
+
