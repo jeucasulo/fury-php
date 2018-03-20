@@ -1,0 +1,8 @@
+ver o col_id do controlador, decidir se vai ser especificado uma chave primária pra essa tabela
+
+checar espaços a mais no controllerGenerate
+
+
+alterar os path de arquivos criados e criar file de configuração pra ajustar configurações
+
+rever os replaces do GenerateRequest
