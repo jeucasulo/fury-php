@@ -7,11 +7,13 @@ $(document).ready(function(){
 	$("#addNewCOlumn").click(Index.AddNewColumn);
 	$(".deleteColumn").on('click', "deleteColumn",Index.DeleteColumn);
 
+	/*----------  Routes  ----------*/
+	$("#generateRoutes").click(Routes.GenerateRoutesString);
+
+
 	/*----------  Controller  ----------*/
 	$("#generateController").click(Controller.GenerateControllerString);
 
-	/*----------  Routes  ----------*/
-	$("#generateRoutes").click(Routes.GenerateRoutesString);
 
 	/*----------  Model  ----------*/
 	$("#generateModel").click(Model.GenerateModelString);
@@ -261,7 +263,7 @@ var Controller = {
 		let totalColumns = $("#totalColumns").html();
 
 		let controllerOutput = "";
-		controllerOutput += "|| double bar"; 
+		// controllerOutput += "º"; 
 		controllerOutput += "<\?php \n|namespace App\\Http\\Controllers; \n|use Illuminate\\Http\\Request;\n|use App\\Http\\Requests;  "; 
 		controllerOutput += "\r\n|\n|class "+tableName+"Controller extends Controller\n|{";
 		
@@ -344,7 +346,8 @@ var Controller = {
 		var controllerOutuputJs = controllerOutput.replace(/[||]/, "or");
 		controllerOutuputJs = controllerOutuputJs.replace(/[|]/g, "");
 		controllerOutuputJs = controllerOutuputJs.replace("or", "||");
-
+		controllerOutuputJs = controllerOutuputJs.replace("º", "");
+		console.log(controllerOutput);
 		$("#controller_string_output").val(controllerOutuputJs);
 		// $("#controller_out_post").val(controllerOutput);
 
