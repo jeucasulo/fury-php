@@ -8,6 +8,8 @@
 
 </head>
 <body>
+	
+
 
 	<p><a href="http://api.jquery.com/jquery.getjson/" target="_blank">Base</a></p>
 	<p><a href="https://stackoverflow.com/questions/14060271/jquery-getjson-and-each-looping-through-child-array-not-linked-to-parent-index?rq=1" target="_blank">Looping nests</a></p>
@@ -26,7 +28,7 @@
 	<hr>
 	<div id="fields"></div>
 
-	<input type="text" id="jsonOutPut" name="jsonOutPut"><br>
+	<input type="text" id="jsonTableOutPut" name="jsonTableOutPut"><br>
 	<!-- <textarea  id="jsonOutPut" name="jsonOutPut"></textarea><br> -->
 
 

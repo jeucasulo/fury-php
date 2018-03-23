@@ -4,7 +4,7 @@
 	"plural":"pacientes",
 	"fields":[
 			{"id":1,"display_name":"Id","html_name":"id","html_type":"number","migration_type":"integer","nullable":"no","default":"auto-increment"},
-			{"id":2,"display_name":"Nome","html_name":"nome","html_type":"text","migration_type":"varchar","nullable":"no","default":""},
-			{"id":3,"display_name":"Data nascimento","html_name":"db","html_type":"number","migration_type":"integer","nullable":"no","default":""}
+			{"id":2,"display_name":"asdf","html_name":"nome","html_type":"text","migration_type":"varchar","nullable":"no","default":""},
+			{"id":3,"display_name":"Data de nascimento","html_name":"data_nascimento","html_type":"number","migration_type":"integer","nullable":"no","default":""}
 	]
 }

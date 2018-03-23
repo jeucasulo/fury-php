@@ -24,3 +24,19 @@ segunda versao
 }
 
 
+{
+	"controller_path":"app/http/controllers",
+	"model_path":"app/models",
+	"request_path":"app/http/requests",
+	"views_path":"resources/views/cruds",
+	"nav_user":"Default(Bootstrap)",
+	"footer_user":"Default(Bootstrap)",
+	"nav":[
+			{"id":1,"name":"Default(Bootstrap)","html":"<html>NavDefaultBootstrap</html>"}
+	],
+	"footer":[
+			{"id":1,"name":"Default(Bootstrap)","html":"<html>FooterDefaultBootstrap</html>"}
+	]
+}
+
+

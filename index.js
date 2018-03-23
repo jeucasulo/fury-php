@@ -3,6 +3,7 @@ $(document).ready(function(){
 	Index.GettingJsonTableData();
 	Index.SetingSelects();
 	Index.CreatingNewJsonFile();
+	Index.GetingIdOnHover();
 	$("#updateJsonTable").click(Index.UpdatingAndSavingCode);
 	$("#addNewCOlumn").click(Index.AddNewColumn);
 	$(".deleteColumn").on('click', "deleteColumn",Index.DeleteColumn);
@@ -20,12 +21,6 @@ $(document).ready(function(){
 
 	/*----------  Request  ----------*/
 	$("#generateRequest").click(Request.GenerateRequestString);
-
-
-
-
-	
-
 });
 
 var Globals = {
@@ -143,7 +138,7 @@ var Index ={
 			newJsonFile += "}";
 
 			console.log(newJsonFile);
-			$("#jsonOutPut").val(newJsonFile);
+			$("#jsonTableOutPut").val(newJsonFile);
 	},
 	UpdatingAndSavingCode:function(){
 		Index.CreatingNewJsonFile();
@@ -214,7 +209,7 @@ var Index ={
 		  url: "save-json.php",
 		  
 		  success: function(data){
-		    // alert(data);
+		    alert(data);
 		    // $('#success').html("<div class='alert alert-success'>");
 		    // $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
 		    //   .append("</button>");
@@ -229,8 +224,12 @@ var Index ={
 		  
 		});
 
+	},
+	GetingIdOnHover:function(){
+		$("*").mouseover(function(){
+			$(this).attr('title',$(this).attr('id'));
+		});
 	}
-
 };
 var Routes = {
 	/*----------  Subsection comment block  ----------*/
@@ -262,94 +261,90 @@ var Controller = {
 		let tablePlural = $("#tablePlural").val();
 		let totalColumns = $("#totalColumns").html();
 
-		let controllerOutput = "";
-		// controllerOutput += "º"; 
-		controllerOutput += "<\?php \n|namespace App\\Http\\Controllers; \n|use Illuminate\\Http\\Request;\n|use App\\Http\\Requests;  "; 
-		controllerOutput += "\r\n|\n|class "+tableName+"Controller extends Controller\n|{";
+		let controllerOutputPhp = "";
+		// controllerOutputPhp += "§"; 
+		controllerOutputPhp += "<\?php \n§namespace App\\Http\\Controllers; \n§use Illuminate\\Http\\Request;\n§use App\\Http\\Requests;  "; 
+		controllerOutputPhp += "\r\n§\n§class "+tableName+"Controller extends Controller\n§{";
 		
 		//index
-		controllerOutput += "\n|\t/** \n|\t * Display a listing of the resource. \n|\t * \n|\t * @return \\Illuminate\\Http\\Response \n |\t */ \n|\tpublic function index() \n|\t{";
-		controllerOutput += "\n|\t\t$"+tablePlural+" = \\App\\Models\\"+tableName+"::all();";
-		controllerOutput += "\n|\t\treturn view('cruds."+tableSingular+".index', compact('"+tablePlural+"'));"; 
-		controllerOutput += "\n|\t}";
+		controllerOutputPhp += "\n§\t/** \n§\t * Display a listing of the resource. \n§\t * \n§\t * @return \\Illuminate\\Http\\Response \n §\t */ \n§\tpublic function index() \n§\t{";
+		controllerOutputPhp += "\n§\t\t$"+tablePlural+" = \\App\\Models\\"+tableName+"::all();";
+		controllerOutputPhp += "\n§\t\treturn view('cruds."+tableSingular+".index', compact('"+tablePlural+"'));"; 
+		controllerOutputPhp += "\n§\t}";
 		
 		//create
-		controllerOutput += "\n |\n |\t/** \n |\t * Show the form for creating a new resource. \n |\t * \n |\t * @return \\Illuminate\\Http\\Response\n |\t */\n |\tpublic function create()\n |\t {";
-		controllerOutput += "\n |\t\tif(999==999){ // input your acl or condition";
-		controllerOutput += "\n |\t\t\t//return redirect()->route('cruds."+tablePlural+".create');";
-		controllerOutput += "\n |\t\t\treturn view('cruds."+tableSingular+".create');";
-		controllerOutput += "\n |\t\t}else{\n |\t\t\treturn redirect()->route('cruds."+tablePlural+".index');\n |\t\t}";
-		controllerOutput += "\n |\t}";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Show the form for creating a new resource. \n §\t * \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function create()\n §\t {";
+		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
+		controllerOutputPhp += "\n §\t\t\t//return redirect()->route('cruds."+tablePlural+".create');";
+		controllerOutputPhp += "\n §\t\t\treturn view('cruds."+tableSingular+".create');";
+		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tablePlural+".index');\n §\t\t}";
+		controllerOutputPhp += "\n §\t}";
 
 		//store
-		controllerOutput += "\n |\n |\t/** \n |\t * Store a newly created resource in storage. \n |\t * \n |\t * @param  \\Illuminate\\Http\\Request  $request \n |\t * @return \\Illuminate\\Http\\Response\n |\t */\n |\tpublic function store(\\App\\Http\\Requests\\"+tableName+"Request $request)\n |\t{//Request $request";
-		controllerOutput += "\n |\t\tif(999==999){ // input your acl or condition";
-		controllerOutput += "\n |\t\t\t\\App\\Models\\"+tableName+"::create($request->all());";
-		controllerOutput += "\n |\t\t\t\//$last_id = \\App\\"+tableName+"::limit(1)->orderBy('"+tableSingular+"_id','desc')->value('"+tableSingular+"_id');";
-		controllerOutput += "\n |\t\t\t//$"+tableSingular+" = \\App\\"+tableName+"::create(['model_column'=>$request->input('input_html'),'model_column2'=>$request->input('input_html2'),]);";
-		controllerOutput += "\n |\t\t\t//$"+tableSingular+" = new "+tableName+"; $"+tableSingular+"->name = $request->input('input_html'); $"+tableSingular+"->save(); //insertedId = $"+tableSingular+"->id;";
-		controllerOutput += "\n |\t\t\t\\Session::flash('flash_message',[\n |\t\t\t\t'msg'=>\""+tableName+" successfully stored!\", \n |\t\t\t\t'class'=>\"alert-success\"\n |\t\t\t]);";
-		controllerOutput += "\n |\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
-		controllerOutput += "\n |\t\t}else{\n |\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n |\t\t}";
-		controllerOutput += "\n |\t}";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Store a newly created resource in storage. \n §\t * \n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function store(\\App\\Http\\Requests\\"+tableName+"Request $request)\n §\t{//Request $request";
+		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
+		controllerOutputPhp += "\n §\t\t\t\\App\\Models\\"+tableName+"::create($request->all());";
+		controllerOutputPhp += "\n §\t\t\t\//$last_id = \\App\\"+tableName+"::limit(1)->orderBy('"+tableSingular+"_id','desc')->value('"+tableSingular+"_id');";
+		controllerOutputPhp += "\n §\t\t\t//$"+tableSingular+" = \\App\\"+tableName+"::create(['model_column'=>$request->input('input_html'),'model_column2'=>$request->input('input_html2'),]);";
+		controllerOutputPhp += "\n §\t\t\t//$"+tableSingular+" = new "+tableName+"; $"+tableSingular+"->name = $request->input('input_html'); $"+tableSingular+"->save(); //insertedId = $"+tableSingular+"->id;";
+		controllerOutputPhp += "\n §\t\t\t\\Session::flash('flash_message',[\n §\t\t\t\t'msg'=>\""+tableName+" successfully stored!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
+		controllerOutputPhp += "\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
+		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
+		controllerOutputPhp += "\n §\t}";
 
 		//show
-		controllerOutput += "\n |\n |\t/** \n |\t * Display the specified resource. \n |\t * \n |\t * @param  int  $id \n |\t * @return \\Illuminate\\Http\\Response\n |\t */\n |\tpublic function show($id)\n |\t{";
-		controllerOutput += "\n |\t\tif(999==999){ // input your acl or condition";
-		controllerOutput += "\n |\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);";
-		controllerOutput += "\n |\t\t\t// get previous user id";
-		controllerOutput += "\n |\t\t\t$previous = \\App\\Models\\"+tableName+"::where('"+col_id+"', '<', $"+tableSingular+"->"+col_id+")->max('"+col_id+"');";
-		controllerOutput += "\n |\t\t\tif($previous==null){";
-		controllerOutput += "\n |\t\t\t\t$previous = \\App\\Models\\"+tableName+"::orderBy('"+col_id+"','desc')->value('"+col_id+"');";
-		controllerOutput += "\n |\t\t\t}";
-		controllerOutput += "\n |\t\t\t// get next user id";
-		controllerOutput += "\n |\t\t\t$next = \\App\\Models\\"+tableName+"::where('"+col_id+"', '>', $"+tableSingular+"->"+col_id+")->min('"+col_id+"');";
-		controllerOutput += "\n |\t\t\tif($next==0){";
-		controllerOutput += "\n |\t\t\t\t$next = \\App\\Models\\"+tableName+"::orderBy('"+col_id+"','asc')->value('"+col_id+"');";
-		controllerOutput += "\n |\t\t\t}";
-		//controllerOutput += "\n |\t\t\t//return redirect()->route('cruds."+tableSingular+".show', compact('"+tableSingular+"','previous','next'));";
-		controllerOutput += "\n |\t\t\treturn view('cruds."+tableSingular+".show', compact('"+tableSingular+"','previous','next','id'));";
-		controllerOutput += "\n |\t\t}else{\n |\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n |\t\t}";
-		controllerOutput += "\n |\t}";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Display the specified resource. \n §\t * \n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function show($id)\n §\t{";
+		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
+		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);";
+		controllerOutputPhp += "\n §\t\t\t// get previous user id";
+		controllerOutputPhp += "\n §\t\t\t$previous = \\App\\Models\\"+tableName+"::where('"+col_id+"', '<', $"+tableSingular+"->"+col_id+")->max('"+col_id+"');";
+		controllerOutputPhp += "\n §\t\t\tif($previous==null){";
+		controllerOutputPhp += "\n §\t\t\t\t$previous = \\App\\Models\\"+tableName+"::orderBy('"+col_id+"','desc')->value('"+col_id+"');";
+		controllerOutputPhp += "\n §\t\t\t}";
+		controllerOutputPhp += "\n §\t\t\t// get next user id";
+		controllerOutputPhp += "\n §\t\t\t$next = \\App\\Models\\"+tableName+"::where('"+col_id+"', '>', $"+tableSingular+"->"+col_id+")->min('"+col_id+"');";
+		controllerOutputPhp += "\n §\t\t\tif($next==0){";
+		controllerOutputPhp += "\n §\t\t\t\t$next = \\App\\Models\\"+tableName+"::orderBy('"+col_id+"','asc')->value('"+col_id+"');";
+		controllerOutputPhp += "\n §\t\t\t}";
+		//controllerOutputPhp += "\n §\t\t\t//return redirect()->route('cruds."+tableSingular+".show', compact('"+tableSingular+"','previous','next'));";
+		controllerOutputPhp += "\n §\t\t\treturn view('cruds."+tableSingular+".show', compact('"+tableSingular+"','previous','next','id'));";
+		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
+		controllerOutputPhp += "\n §\t}";
 		
 		//edit
-		controllerOutput += "\n |\n |\t/** \n |\t * Show the form for editing the specified resource. \n |\t * \n |\t * @param  int  $id \n |\t * @return \\Illuminate\\Http\\Response\n |\t */\n |\tpublic function edit($id)\n |\t{\n |\t";
-		controllerOutput += "\n |\t\tif(999==999){ // input your acl or condition";
-		controllerOutput += "\n |\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);";
-		controllerOutput += "\n |\t\t\treturn view('cruds."+tableSingular+".edit', compact('"+tableSingular+"'));";
-		controllerOutput += "\n |\t\t}else{\n |\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n |\t\t}";
-		controllerOutput += "\n |\t}";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Show the form for editing the specified resource. \n §\t * \n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function edit($id)\n §\t{\n §\t";
+		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
+		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);";
+		controllerOutputPhp += "\n §\t\t\treturn view('cruds."+tableSingular+".edit', compact('"+tableSingular+"'));";
+		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
+		controllerOutputPhp += "\n §\t}";
 		
 		//update
-		controllerOutput += "\n |\n |\t/** \n |\t * Update the specified resource in storage. \n |\t *\n |\t * @param  \\Illuminate\\Http\\Request  $request \n |\t * @param  int  $id \n |\t * @return \\Illuminate\\Http\\Response\n |\t */\n |\tpublic function update(\\App\\Http\\Requests\\"+tableName+"Request $request, $id)\n |\t{//Request $request";
-		controllerOutput += "\n |\t\tif(999==999){ // input your acl or condition";
-		controllerOutput += "\n |\t\t\t\\App\\Models\\"+tableName+"::find($id)->update($request->all());";
-		controllerOutput += "\n |\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);// $"+tableSingular+"->name=Input::get('name');"+tableSingular+"->save()//$request->input('input_html')"; 
-		controllerOutput += "\n |\t\t\t\\Session::flash('flash_message',[\n |\t\t\t\t'msg'=>\""+tableName+" successfully updated!\", \n |\t\t\t\t'class'=>\"alert-success\"\n |\t\t\t]);";
-		controllerOutput += "\n |\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
-		controllerOutput += "\n |\t\t}else{\n |\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n |\t\t}";
-		controllerOutput += "\n |\t}";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Update the specified resource in storage. \n §\t *\n §\t * @param  \\Illuminate\\Http\\Request  $request \n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function update(\\App\\Http\\Requests\\"+tableName+"Request $request, $id)\n §\t{//Request $request";
+		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
+		controllerOutputPhp += "\n §\t\t\t\\App\\Models\\"+tableName+"::find($id)->update($request->all());";
+		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);// $"+tableSingular+"->name=Input::get('name');"+tableSingular+"->save()//$request->input('input_html')"; 
+		controllerOutputPhp += "\n §\t\t\t\\Session::flash('flash_message',[\n §\t\t\t\t'msg'=>\""+tableName+" successfully updated!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
+		controllerOutputPhp += "\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
+		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
+		controllerOutputPhp += "\n §\t}";
 
 		//destroy
-		controllerOutput += "\n |\n |\t/** \n |\t * Remove the specified resource from storage. \n |\t *\n |\t * @param  int  $id \n |\t * @return \\Illuminate\\Http\\Response\n |\t */\n |\tpublic function destroy($id)\n |\t{";
-		controllerOutput += "\n |\t\tif(999==999){ // input your acl or condition";
-		controllerOutput += "\n |\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);";
-		controllerOutput += "\n |\t\t\t$"+tableSingular+"->delete();";
-		controllerOutput += "\n |\t\t\t\Session::flash('flash_message',['\n |\t\t\t\tmsg'=>\""+tableName+" successfully removed!\", \n |\t\t\t\t'class'=>\"alert-success\"\n |\t\t\t]);";
-		controllerOutput += "\n |\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
-		controllerOutput += "\n |\t\t}else{\n |\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n |\t\t}";
-		controllerOutput += "\n |\t}";
+		controllerOutputPhp += "\n §\n §\t/** \n §\t * Remove the specified resource from storage. \n §\t *\n §\t * @param  int  $id \n §\t * @return \\Illuminate\\Http\\Response\n §\t */\n §\tpublic function destroy($id)\n §\t{";
+		controllerOutputPhp += "\n §\t\tif(999==999){ // input your acl or condition";
+		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+" = \\App\\Models\\"+tableName+"::find($id);";
+		controllerOutputPhp += "\n §\t\t\t$"+tableSingular+"->delete();";
+		controllerOutputPhp += "\n §\t\t\t\Session::flash('flash_message',['\n §\t\t\t\tmsg'=>\""+tableName+" successfully removed!\", \n §\t\t\t\t'class'=>\"alert-success\"\n §\t\t\t]);";
+		controllerOutputPhp += "\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');";
+		controllerOutputPhp += "\n §\t\t}else{\n §\t\t\treturn redirect()->route('cruds."+tableSingular+".index');\n §\t\t}";
+		controllerOutputPhp += "\n §\t}";
 
 		//finalclass
-		controllerOutput += "\n |\n |}";
+		controllerOutputPhp += "\n §\n §}";
+
+		controllerOutuputJs = controllerOutputPhp.replace(/[§]/g, "");
 		
-		var controllerOutuputJs = controllerOutput.replace(/[||]/, "or");
-		controllerOutuputJs = controllerOutuputJs.replace(/[|]/g, "");
-		controllerOutuputJs = controllerOutuputJs.replace("or", "||");
-		controllerOutuputJs = controllerOutuputJs.replace("º", "");
-		console.log(controllerOutput);
 		$("#controller_string_output").val(controllerOutuputJs);
-		// $("#controller_out_post").val(controllerOutput);
 
 	},
 };
@@ -360,52 +355,52 @@ var Model = {
 		let tablePlural = $("#tablePlural").val();
 		let totalColumns = $("#totalColumns").html();
 		let html_name = "";
-		let modelString = "";
+		let modelOutputPhp = "";
 
-	    modelString +="";
+	    modelOutputPhp +="";
 
-	    modelString+="<\?php";
-	    modelString+=" \n | ";
-	    modelString+=" \n |namespace App\\Models;";
-	    modelString+=" \n | ";
-	    modelString+=" \n | use Illuminate\\Database\\Eloquent\\Model;";
-	    modelString+=" \n | ";
-	    modelString+=" \n | class "+tableName+" extends Model";
-	    modelString+=" \n | {";
-	    modelString+=" \n | \t\t//protected $table = 'furys';//table name";
-	    modelString+=" \n | \t\t//protected $primaryKey = 'pdt_id';//table pk";
-	    modelString+=" \n | \t\tprotected $fillable = [";
-	    modelString+=" \n | \t\t\t";
+	    modelOutputPhp+="<\?php";
+	    modelOutputPhp+=" \n § ";
+	    modelOutputPhp+=" \n §namespace App\\Models;";
+	    modelOutputPhp+=" \n § ";
+	    modelOutputPhp+=" \n § use Illuminate\\Database\\Eloquent\\Model;";
+	    modelOutputPhp+=" \n § ";
+	    modelOutputPhp+=" \n § class "+tableName+" extends Model";
+	    modelOutputPhp+=" \n § {";
+	    modelOutputPhp+=" \n § \t\t//protected $table = 'furys';//table name";
+	    modelOutputPhp+=" \n § \t\t//protected $primaryKey = 'pdt_id';//table pk";
+	    modelOutputPhp+=" \n § \t\tprotected $fillable = [";
+	    modelOutputPhp+=" \n § \t\t\t";
 
 	    for (var i = 0; i < totalColumns; i++) {
     		html_name = $("#html_name"+[i]).val();
 	    		if(html_name != null){
-		        	modelString +="'"+html_name+"', ";
+		        	modelOutputPhp +="'"+html_name+"', ";
 	    		}else{
 	    			totalColumns++ ;
 	    		}
 	    }
 
-	    modelString+=" \n | \t\t];";
+	    modelOutputPhp+=" \n § \t\t];";
 	    
-	    modelString+=" \n | ";
-	    modelString+=" \n | \t\t//public function hasManyFunction(){";
-	    modelString+=" \n | \t\t//  return $this->hasMany('HasManyFromThis-App\\OtherModelName','OtherTableId-column_table','thisTableRelationId-id');";
-	    modelString+=" \n | \t\t//}";
-	    modelString+=" \n |";
-	    modelString+=" \n | \t\t//public function belongsToThisModelItem(){";
-	    modelString+=" \n | \t\t//return $this->belongsToMany('belongsToThis-App\\OtherModelName');";
-	    modelString+=" \n | \t\t//}";
-	    modelString+=" \n |";
-	    modelString+=" \n | \t\t//public function hasOne/singularName(){";
-	    modelString+=" \n | \t\t//return $this->hasOne('HasOneOfThis-App\\OtherModelName','OtherTableId-column_table','thisTableRelationId-id')";
-	    modelString+=" \n | \t\t//}";
+	    modelOutputPhp+=" \n § ";
+	    modelOutputPhp+=" \n § \t\t//public function hasManyFunction(){";
+	    modelOutputPhp+=" \n § \t\t//  return $this->hasMany('HasManyFromThis-App\\OtherModelName','OtherTableId-column_table','thisTableRelationId-id');";
+	    modelOutputPhp+=" \n § \t\t//}";
+	    modelOutputPhp+=" \n §";
+	    modelOutputPhp+=" \n § \t\t//public function belongsToThisModelItem(){";
+	    modelOutputPhp+=" \n § \t\t//return $this->belongsToMany('belongsToThis-App\\OtherModelName');";
+	    modelOutputPhp+=" \n § \t\t//}";
+	    modelOutputPhp+=" \n §";
+	    modelOutputPhp+=" \n § \t\t//public function hasOne/singularName(){";
+	    modelOutputPhp+=" \n § \t\t//return $this->hasOne('HasOneOfThis-App\\OtherModelName','OtherTableId-column_table','thisTableRelationId-id')";
+	    modelOutputPhp+=" \n § \t\t//}";
 
-	    modelString+=" \n | }";
+	    modelOutputPhp+=" \n § }";
 
-	    var modelStringJs = modelString.replace(/[|]/g, "");
+	    var modelOutputJs = modelOutputPhp.replace(/[§]/g, "");
 
-		$("#model_string_output").val(modelStringJs);
+		$("#model_string_output").val(modelOutputJs);
 	}
 };
 var Request = {
@@ -413,60 +408,60 @@ var Request = {
 	    let tableName = $("#tableName").val();
 	    let totalColumns = $("#totalColumns").html();
 
-	    let requestString = "";
+	    let requestStringPhp = "";
 
-	    requestString+="<\?php";
-	    requestString+=" \n | ";
-	    requestString+=" \n | namespace App\\Http\\Requests;";
-	    requestString+=" \n | ";
-	    requestString+=" \n | use Illuminate\\Foundation\\Http\\FormRequest;";
-	    requestString+=" \n | ";
-	    requestString+=" \n | class "+tableName+"Request extends FormRequest";
-	    requestString+=" \n | {";
+	    requestStringPhp+="<\?php";
+	    requestStringPhp+=" \n § ";
+	    requestStringPhp+=" \n § namespace App\\Http\\Requests;";
+	    requestStringPhp+=" \n § ";
+	    requestStringPhp+=" \n § use Illuminate\\Foundation\\Http\\FormRequest;";
+	    requestStringPhp+=" \n § ";
+	    requestStringPhp+=" \n § class "+tableName+"Request extends FormRequest";
+	    requestStringPhp+=" \n § {";
 
-	    requestString+=" \n | \t\t/**";
-	    requestString+=" \n | \t\t * Determine if the user is authorized to make this request.";
-	    requestString+=" \n | \t\t *";
-	    requestString+=" \n | \t\t * @return bool";
-	    requestString+=" \n | \t\t */";
-	    requestString+=" \n | \t\tpublic function authorize()";
-	    requestString+=" \n | \t\t{";
-	    requestString+=" \n | \t\t\treturn true;";
-	    requestString+=" \n | \t\t}";
-	    requestString+=" \n |";
-	    requestString+=" \n | \t\t/**";
-	    requestString+=" \n | \t\t * Get the validation rules that apply to the request.";
-	    requestString+=" \n | \t\t *";
-	    requestString+=" \n | \t\t * @return array";
-	    requestString+=" \n | \t\t */";
-	    requestString+=" \n | \t\t";
-	    requestString+=" \n | \t\tpublic function rules()";
-	    requestString+=" \n | \t\t{";
-	    requestString+=" \n | \t\t\treturn [";
+	    requestStringPhp+=" \n § \t\t/**";
+	    requestStringPhp+=" \n § \t\t * Determine if the user is authorized to make this request.";
+	    requestStringPhp+=" \n § \t\t *";
+	    requestStringPhp+=" \n § \t\t * @return bool";
+	    requestStringPhp+=" \n § \t\t */";
+	    requestStringPhp+=" \n § \t\tpublic function authorize()";
+	    requestStringPhp+=" \n § \t\t{";
+	    requestStringPhp+=" \n § \t\t\treturn true;";
+	    requestStringPhp+=" \n § \t\t}";
+	    requestStringPhp+=" \n §";
+	    requestStringPhp+=" \n § \t\t/**";
+	    requestStringPhp+=" \n § \t\t * Get the validation rules that apply to the request.";
+	    requestStringPhp+=" \n § \t\t *";
+	    requestStringPhp+=" \n § \t\t * @return array";
+	    requestStringPhp+=" \n § \t\t */";
+	    requestStringPhp+=" \n § \t\t";
+	    requestStringPhp+=" \n § \t\tpublic function rules()";
+	    requestStringPhp+=" \n § \t\t{";
+	    requestStringPhp+=" \n § \t\t\treturn [";
 
 	    for (var i = 0; i < totalColumns; i++) {
     		html_name = $("#html_name"+[i]).val();
 	    		if(html_name != null){
-		        	// modelString +="'"+html_name+"', ";
-		        	requestString +="\n | \t\t\t\t'"+html_name+"'=>'required|max:20',";
+		        	// modelOutputPhp +="'"+html_name+"', ";
+		        	requestStringPhp +="\n § \t\t\t\t'"+html_name+"'=>'required|max:20',";
 	    		}else{
 	    			totalColumns++ ;
 	    		}
 	    }
 
-	    requestString+=" \n | \t\t\t];";
-	    requestString+=" \n | \t\t}";
+	    requestStringPhp+=" \n § \t\t\t];";
+	    requestStringPhp+=" \n § \t\t}";
 
-        requestString+=" \n | \t\tpublic function messages()";
-        requestString+=" \n | \t\t{";
-        requestString+=" \n | \t\t\treturn [";
+        requestStringPhp+=" \n § \t\tpublic function messages()";
+        requestStringPhp+=" \n § \t\t{";
+        requestStringPhp+=" \n § \t\t\treturn [";
 
     	    for (var i = 0; i < totalColumns; i++) {
         		html_name = $("#html_name"+[i]).val();
     	    		if(html_name != null){
-    		        	// modelString +="'"+html_name+"', ";
-    		        	// requestString +="\n | \t\t\t\t'"+html_name+"'=>'required|max:20',";
-		    	        requestString +="\n | \t\t\t\t'"+html_name+".required'=>'Field required',";
+    		        	// modelOutputPhp +="'"+html_name+"', ";
+    		        	// requestStringPhp +="\n | \t\t\t\t'"+html_name+"'=>'required|max:20',";
+		    	        requestStringPhp +="\n § \t\t\t\t'"+html_name+".required'=>'Field required',";
 
     	    		}else{
     	    			totalColumns++ ;
@@ -474,17 +469,32 @@ var Request = {
     	    }
 
 
-        requestString+=" \n | \t\t\t];";
-        requestString+=" \n | \t\t}";
+        requestStringPhp+=" \n § \t\t\t];";
+        requestStringPhp+=" \n § \t\t}";
         
-	    requestString+="\n | //rules options: max:number|min:number|email|unique:posts|bail|nullable|date";
+	    requestStringPhp+="\n § //rules options: max:number|min:number|email|unique:posts|bail|nullable|date";
 
-	    requestString+=" \n | }";
+	    requestStringPhp+=" \n § }";
 
-	   	// var requestStringJs = requestString.replace(/[|]/g, "");
-	   	var requestStringJs = requestString; 
+	   	var requestStringJs = requestStringPhp.replace(/[§]/g, ""); 
 
 	    $("#request_string_output").val(requestStringJs);    
-	    // $("#request_out_post").val(requestString);    
 	}
 };
+
+var Views = {
+	GenerateCreateView:function(){
+		
+	},
+	GenerateIndexView:function(){
+
+	},
+	GenerateShowView:function(){
+
+	},
+	GenerateEditView:function(){
+		
+	}
+};
+
+
