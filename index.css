@@ -9,9 +9,7 @@ input{
 	max-width: 100px;
 }
 
-#jsonOutPut, #lastId, #lastIdSpan{
-	display: none;
-}
+
 .columnDiv{
 	margin-top:0px;
 	margin-bottom:0px;

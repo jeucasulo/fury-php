@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	/*----------  Index  ----------*/
+	Index.HidingElements();
 	Index.GettingJsonTableData();
 	Index.SetingSelects();
 	Index.CreatingNewJsonFile();
@@ -31,6 +32,12 @@ var Globals = {
 
 
 var Index ={
+	HidingElements:function(){
+		$("#jsonTableOutPut").hide();
+		$("#tutorialJson").hide();
+		$("#lastId").hide();
+		$("#lastIdSpan").hide();
+	},
 	GettingJsonTableData:function(){
 			// alert(Globals.tableName);
 
@@ -39,31 +46,32 @@ var Index ={
 			$.getJSON( "table1.json", function( myObj ) {
 			let totalColumns = 0;
 			let lastId = myObj.fields[(myObj.fields.length-1)].id;
-			lastId +=1;
+			lastId +=2;
 			// let lastId = 0;
 			for (i = 0; i < myObj.fields.length; i++) {
-	    		fieldsList += "<div class='columnDiv' id='divColumn"+[i]+"'>";
-			    fieldsList += "Display name: <input type='text' id='display_name" + [i] + "' name='display_name" + [i] + "' value='" + myObj.fields[i].display_name + "' class='totalColumns' /> &nbsp";
-			    fieldsList += "Html hame: <input type='text' id='html_name" + [i] + "' name='html_name" + [i] + "' value='" + myObj.fields[i].html_name + "' class='totalColumns' /> &nbsp";
-			    fieldsList += "Html type: <select id='html_type" + [i] + "' name='html_type" + [i] + "'  class='totalColumns'>"+
+	    		
+	    		fieldsList += "<div class='columnDiv row' id='divColumn"+[i]+"'>";
+			    fieldsList += "<div class='col-sm'><input type='text' id='display_name" + [i] + "' name='display_name" + [i] + "' value='" + myObj.fields[i].display_name + "' class='totalColumns form-control-sm' /></div>";
+			    fieldsList += "<div class='col-sm'><input type='text' id='html_name" + [i] + "' name='html_name" + [i] + "' value='" + myObj.fields[i].html_name + "' class='totalColumns form-control-sm' /> </div>";
+			    fieldsList += "<div class='col-sm'><select id='html_type" + [i] + "' name='html_type" + [i] + "'  class='totalColumns form-control-sm'>"+
 										    "<option value='text'>text</option>" +
 										    "<option value='checkbox'>checkbox</option>" +
 										    "<option value='number'>number</option>" +
 										    "<option value='image'>image</option>" +
 										    "<option value='email'>email</option>" +
 										    "<option value='password'>password</option>" +
-									    "</select> ";
-			    fieldsList += "Migration Type<select id='migration_type" + [i] + "' name='migration_type" + [i] + "' >" +
+									    "</select></div>";
+			    fieldsList += "<div class='col-sm'><select id='migration_type" + [i] + "' name='migration_type" + [i] + "' class='form-control-sm'>" +
 									        "<option value='varchar'>varchar</option>" +
 									        "<option value='integer'>integer</option>" +
 									        "<option value='date'>date</option>" +
 									        "<option value='image'>image</option>" +
 									        "<option value='boolean'>boolean</option>" +
 									        "<option value='checkbox'>checkbox</option>" +
-								        "</select> ";
-		        fieldsList += "Nullable: <input type='text' id='nullable" + [i] + "' name='nullable" + [i] + "' value='" + myObj.fields[i].nullable + "'  /> ";
-		        fieldsList += "Default: <input type='text' id='default" + [i] + "' name='default" + [i] + "' value='" + myObj.fields[i].default + "'  /> ";
-		        fieldsList += "<button type='button' id='"+[i]+"' name='DeleteColumn"+[i]+"' class='deleteColumn' onclick='Index.DeleteColumn(this)' >Remover</button>";
+								        "</select></div>";
+		        fieldsList += "<div class='col-sm'><input type='text' id='nullable" + [i] + "' name='nullable" + [i] + "' value='" + myObj.fields[i].nullable + "'  class='form-control-sm' /> </div>";
+		        fieldsList += "<div class='col-sm'><input type='text' id='default" + [i] + "' name='default" + [i] + "' value='" + myObj.fields[i].default + "'  class='form-control-sm' /> </div> ";
+		        fieldsList += "<div class='col-sm'><button type='button' id='"+[i]+"' name='DeleteColumn"+[i]+"' class='deleteColumn btn btn-danger' onclick='Index.DeleteColumn(this)' >Remover</button> </div>";
 		        fieldsList += "</br>";
 		        fieldsList += "</div>";
 		        fieldsList += "\n";
@@ -151,31 +159,61 @@ var Index ={
 		let newTotalColumns = (parseInt($("#totalColumns").html()) + 1);
 		let newColumnHtml = "";
 
-	    newColumnHtml += "<div class='columnDiv' id='divColumn"+newColumnId+"'>";
-	    newColumnHtml += "Display name: <input type='text' id='display_name" + newColumnId + "' name='display_name" + newColumnId + "' value='"+newColumnId+"' class='totalColumns' /> &nbsp";
+	    newColumnHtml += "<div class='columnDiv row' id='divColumn"+newColumnId+"'>";
+	    newColumnHtml += "<div class='col-sm'><input type='text' id='display_name" + newColumnId + "' name='display_name" + newColumnId + "' value='"+newColumnId+"' class='totalColumns form-control-sm' /> </div>";
 	    // newColumnHtml += "Display name: <input type='text' id='display_name" + newColumnId + "' name='display_name" + newColumnId + "' value='' class='totalColumns' /> &nbsp";
-	    newColumnHtml += "Html hame: <input type='text' id='html_name" + newColumnId + "' name='html_name" + newColumnId + "' value='' class='totalColumns' /> &nbsp";
-	    newColumnHtml += "Html type: <select id='html_type" + newColumnId + "' name='html_type" + newColumnId + "'  class='totalColumns'>"+
+	    newColumnHtml += "<div class='col-sm'><input type='text' id='html_name" + newColumnId + "' name='html_name" + newColumnId + "' value='' class='totalColumns form-control-sm' /> </div>";
+	    newColumnHtml += "<div class='col-sm'><select id='html_type" + newColumnId + "' name='html_type" + newColumnId + "'  class='totalColumns form-control-sm'>"+
 								    "<option value='text'>text</option>" +
 								    "<option value='checkbox'>checkbox</option>" +
 								    "<option value='number'>number</option>" +
 								    "<option value='image'>image</option>" +
 								    "<option value='email'>email</option>" +
 								    "<option value='password'>password</option>" +
-							    "</select> ";
-	    newColumnHtml += "Migration Type<select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' >" +
+							    "</select> </div>";
+	    newColumnHtml += "<div class='col-sm'><select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' > class='form-control-sm'" +
 							        "<option value='varchar'>varchar</option>" +
 							        "<option value='integer'>integer</option>" +
 							        "<option value='date'>date</option>" +
 							        "<option value='image'>image</option>" +
 							        "<option value='boolean'>boolean</option>" +
 							        "<option value='checkbox'>checkbox</option>" +
-						        "</select> ";
-        newColumnHtml += "Nullable: <input type='text' id='nullable" + newColumnId + "' name='nullable" + newColumnId + "' value=''  /> ";
-        newColumnHtml += "Default: <input type='text' id='default" + newColumnId + "' name='default" + newColumnId + "' value=''  /> ";
-        newColumnHtml += "<button type='button' id='"+newColumnId+"' name='DeleteColumn"+newColumnId+"' class='deleteColumn' onclick='Index.DeleteColumn(this)' >Remover</button>";
+						        "</select> </div>";
+        newColumnHtml += "<div class='col-sm'><input type='text' id='nullable" + newColumnId + "' name='nullable" + newColumnId + "' value=''  class='form-control-sm' /> </div> ";
+        newColumnHtml += "<div class='col-sm'><input type='text' id='default" + newColumnId + "' name='default" + newColumnId + "' value='' class='form-control-sm' /> </div>";
+        newColumnHtml += "<div class='col-sm'><button type='button' id='"+newColumnId+"' name='DeleteColumn"+newColumnId+"' class='deleteColumn btn btn-danger' onclick='Index.DeleteColumn(this)' >Remover</button> </div>";
         newColumnHtml += "</br>";
         newColumnHtml += "</div>";
+
+        //
+            		// // fieldsList += "<div class='columnDiv row' id='divColumn"+[i]+"'>";
+        		    // fieldsList += "<div class='col-sm'><input type='text' id='display_name" + [i] + "' name='display_name" + [i] + "' value='" + myObj.fields[i].display_name + "' class='totalColumns form-control-sm' /></div>";
+        		    // fieldsList += "<div class='col-sm'><input type='text' id='html_name" + [i] + "' name='html_name" + [i] + "' value='" + myObj.fields[i].html_name + "' class='totalColumns form-control-sm' /> </div>";
+        		    // fieldsList += "<div class='col-sm'><select id='html_type" + [i] + "' name='html_type" + [i] + "'  class='totalColumns form-control-sm'>"+
+        						// 			    "<option value='text'>text</option>" +
+        						// 			    "<option value='checkbox'>checkbox</option>" +
+        						// 			    "<option value='number'>number</option>" +
+        						// 			    "<option value='image'>image</option>" +
+        						// 			    "<option value='email'>email</option>" +
+        						// 			    "<option value='password'>password</option>" +
+        						// 		    "</select></div>";
+        		    // fieldsList += "<div class='col-sm'><select id='migration_type" + [i] + "' name='migration_type" + [i] + "' class='form-control-sm'>" +
+        						// 		        "<option value='varchar'>varchar</option>" +
+        						// 		        "<option value='integer'>integer</option>" +
+        						// 		        "<option value='date'>date</option>" +
+        						// 		        "<option value='image'>image</option>" +
+        						// 		        "<option value='boolean'>boolean</option>" +
+        						// 		        "<option value='checkbox'>checkbox</option>" +
+        						// 	        "</select></div>";
+        	     //    fieldsList += "<div class='col-sm'><input type='text' id='nullable" + [i] + "' name='nullable" + [i] + "' value='" + myObj.fields[i].nullable + "'  class='form-control-sm' /> </div>";
+        	     //    fieldsList += "<div class='col-sm'><input type='text' id='default" + [i] + "' name='default" + [i] + "' value='" + myObj.fields[i].default + "'  class='form-control-sm' /> </div> ";
+        	     //    fieldsList += "<div class='col-sm'><button type='button' id='"+[i]+"' name='DeleteColumn"+[i]+"' class='deleteColumn btn btn-danger' onclick='Index.DeleteColumn(this)' >Remover</button> </div>";
+        	     //    fieldsList += "</br>";
+        	     //    fieldsList += "</div>";
+        	     //    fieldsList += "\n";
+
+        
+        //
 
         newColumnHtml += "\n";
         
@@ -209,7 +247,7 @@ var Index ={
 		  url: "save-json.php",
 		  
 		  success: function(data){
-		    alert(data);
+		    // alert(data);
 		    // $('#success').html("<div class='alert alert-success'>");
 		    // $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
 		    //   .append("</button>");
