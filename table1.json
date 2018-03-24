@@ -5,6 +5,6 @@
 	"fields":[
 			{"id":1,"display_name":"Id","html_name":"id","html_type":"number","migration_type":"integer","nullable":"no","default":"auto-increment"},
 			{"id":2,"display_name":"Nome","html_name":"nome","html_type":"text","migration_type":"varchar","nullable":"no","default":""},
-			{"id":25,"display_name":"24","html_name":"","html_type":"text","migration_type":"varchar","nullable":"","default":""}
+			{"id":3,"display_name":"Data de nascimento","html_name":"birthday_date","html_type":"text","migration_type":"varchar","nullable":"","default":""}
 	]
 }

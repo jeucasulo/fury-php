@@ -8,6 +8,8 @@ $(document).ready(function(){
 	$("#updateJsonTable").click(Index.UpdatingAndSavingCode);
 	$("#addNewCOlumn").click(Index.AddNewColumn);
 	$(".deleteColumn").on('click', "deleteColumn",Index.DeleteColumn);
+	$("#backToTable").click(Index.BackToTable);
+
 
 	/*----------  Routes  ----------*/
 	$("#generateRoutes").click(Routes.GenerateRoutesString);
@@ -37,6 +39,7 @@ var Index ={
 		$("#tutorialJson").hide();
 		$("#lastId").hide();
 		$("#lastIdSpan").hide();
+		$("#codeGenerator").hide();
 	},
 	GettingJsonTableData:function(){
 			// alert(Globals.tableName);
@@ -171,7 +174,7 @@ var Index ={
 								    "<option value='email'>email</option>" +
 								    "<option value='password'>password</option>" +
 							    "</select> </div>";
-	    newColumnHtml += "<div class='col-sm'><select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' > class='form-control-sm'" +
+	    newColumnHtml += "<div class='col-sm'><select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' class='form-control-sm'> " +
 							        "<option value='varchar'>varchar</option>" +
 							        "<option value='integer'>integer</option>" +
 							        "<option value='date'>date</option>" +
@@ -239,6 +242,10 @@ var Index ={
 		    // Index.CreatingNewJsonFile();
 
 	},
+	BackToTable:function(){
+		$("#codeGenerator").slideUp("slow");
+		$("#tableSection").slideDown("slow");
+	},
 	SavingNewJsonFile:function(){
 		var formData = $("#saveForm").serialize();
 		$.ajax({
@@ -247,6 +254,8 @@ var Index ={
 		  url: "save-json.php",
 		  
 		  success: function(data){
+		  	$("#codeGenerator").slideDown("slow");
+		  	$("#tableSection").slideUp("slow");
 		    // alert(data);
 		    // $('#success').html("<div class='alert alert-success'>");
 		    // $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")

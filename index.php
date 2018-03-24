@@ -96,32 +96,61 @@
 		</div>		
 	</div>
 </section>
-<!-- ROUTES -->
-<hr>
-<h1>Routes</h1>
-<p><button id="generateRoutes" type="button">Gerar rotas</button></p>
-<textarea id="routes_string_output"></textarea>
+<br>
+<section id="codeGenerator">
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-sm">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+				  <li class="nav-item">
+				    <a class="nav-link active" id="routesDiv-tab" data-toggle="tab" href="#routesDiv" role="tab" aria-controls="routesDiv" aria-selected="true">Routes</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" id="controllerDiv-tab" data-toggle="tab" href="#controllerDiv" role="tab" aria-controls="controllerDiv" aria-selected="false">Controller</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" id="modelDiv-tab" data-toggle="tab" href="#modelDiv" role="tab" aria-controls="modelDiv" aria-selected="false">Model</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" id="requestDiv-tab" data-toggle="tab" href="#requestDiv" role="tab" aria-controls="requestDiv" aria-selected="false">Request</a>
+				  </li>
 
-<!-- CONTROLLER -->
-<hr>
-<h1>Controller</h1>
-<p><button id="generateController" type="button">Gerar controlador</button></p>
-<textarea id="controller_string_output"></textarea>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					  <div class="tab-pane fade show active" id="routesDiv" role="tabpanel" aria-labelledby="home-tab">
+					  		<textarea id="routes_string_output"></textarea>
+					  		<p><button id="generateRoutes" type="button" class="btn btn-default">Gerar rotas</button></p>
+					  </div>
+					  <div class="tab-pane fade" id="controllerDiv" role="tabpanel" aria-labelledby="controllerDiv-tab">
+					  	<textarea id="controller_string_output"></textarea>
+					  	<p><button id="generateController" type="button" class="btn btn-default">Gerar controlador</button></p>
+					  </div>
+					  <div class="tab-pane fade" id="modelDiv" role="tabpanel" aria-labelledby="modelDiv-tab">
+					  	<textarea id="model_string_output"></textarea>
+					  	<p><button id="generateModel" type="button" class="btn btn-default">Gerar model</button></p>
+					  </div>
+					  <div class="tab-pane fade" id="requestDiv" role="tabpanel" aria-labelledby="requestDiv-tab">
+					  	<textarea id="request_string_output"></textarea>
+					  	<p><button id="generateRequest" type="button" class="btn btn-default">Gerar request</button></p>
+					  </div>
 
-<!-- MODEL -->
-<hr>
-<h1>Model</h1>
-<p><button id="generateModel" type="button">Gerar model</button></p>
-<textarea id="model_string_output"></textarea>
+				</div>
 
-<!-- MODEL -->
-<hr>
-<h1>Request</h1>
-<p><button id="generateRequest" type="button">Gerar request</button></p>
-<textarea id="request_string_output"></textarea>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm">
+				<button id="backToTable" type="button" class="btn btn-danger float-sm-right">Voltar para tabela</button>
+			</div>
+		</div>
+	</div>
 
 
 
+
+</section>
 
 
 
