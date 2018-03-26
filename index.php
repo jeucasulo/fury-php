@@ -9,33 +9,63 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<!-- Bootstrap Bootswatch Theme-->
-	<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" crossorigin="anonymous">
+<!-- 	
+ 	
+
+
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css" crossorigin="anonymous">
+
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/cyborg/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/slate/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.min.css" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css" crossorigin="anonymous">
+
+
+
+
+ -->	
+
+ 	<link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
 
+
+<div class="se-pre-con"></div>
+
+
 <section id="myNavBar">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="#">Fury</a>
+	  <a class="navbar-brand float" href="#">Fury</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	  <div class="collapse navbar-collapse " id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 	      
 	    </ul>
 	    <form class="form-inline my-2 my-lg-0">
-	      <li class="nav-item active">
+	      
 	        <a class="nav-link" href="#">Configurações<span class="sr-only">(current)</span></a>
-	      </li>
-	      <li class="nav-item active">
 	        <a class="nav-link" href="#">Instruções<span class="sr-only">(current)</span></a>
-	      </li>
-	      <li class="nav-item active">
 	        <a class="nav-link" href="#">Tabelas<span class="sr-only">(current)</span></a>
-	      </li>
 	    </form>
 	  </div>
 	</nav>
@@ -61,20 +91,23 @@
 						<span>Nome da tabela: </span><input type="text" id="tableName" name="tableName" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
 						<span>Singular: </span><input type="text" id="tableSingular" name="tableSingular" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
 						<span>Plural: </span><input type="text" id="tablePlural" name="tablePlural" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
-						<span>Numero de colunas: </span><span id="totalColumns" class="badge badge-primary"></span>&nbsp&nbsp&nbsp&nbsp
+						<span>Numero de colunas: </span><span id="totalColumns" name="totalColumns" class="badge badge-primary"></span> <input type="text" id="totalColumnsInput"/> &nbsp&nbsp&nbsp&nbsp
 						<button type="button" id="addNewCOlumn" class="btn btn-info float-sm-right">Adicionar coluna</button>
 
 						<hr>
-						<div id="header_fields" class="row">
-							<div class="col-sm"><b>Display Name</b></div>
-							<div class="col-sm"><b>Html hame</b></div>
-							<div class="col-sm"><b>Html type</b></div>
-							<div class="col-sm"><b>Migration Type</b></div>
-							<div class="col-sm"><b>Nullable</b></div>
-							<div class="col-sm"><b>Default</b></div>
-							<div class="col-sm"><b></b></div>
+						<div id="header_fields" class="row text-center">
+							<div class="col-custom"><b>Display Name</b></div>
+							<div class="col-custom"><b>Html hame</b></div>
+							<div class="col-custom"><b>Html type</b></div>
+							<div class="col-custom"><b>Migration Type</b></div>
+							<div class="col-custom-sm"><b>Null</b></div>
+							<div class="col-custom" style="background-color: "><b title='Create | Index | Show | Edit'>Visibilidade (?)</b></div>
+							<div class="col-custom" style="background-color: "><b>Index</b></div>
+							<div class="col-custom" style="background-color: "><b>Default</b></div>
+
+							<div class="col-custom"><b></b></div>
 						</div>
-						<div id="fields">
+						<div id="fields" class="input-group input-group-sm mb-3">
 						</div>
 
 						<input type="text" id="jsonTableOutPut" name="jsonTableOutPut"><br>
@@ -115,6 +148,15 @@
 				  <li class="nav-item">
 				    <a class="nav-link" id="requestDiv-tab" data-toggle="tab" href="#requestDiv" role="tab" aria-controls="requestDiv" aria-selected="false">Request</a>
 				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" id="createViewDiv-tab" data-toggle="tab" href="#createViewDiv" role="tab" aria-controls="createViewDiv" aria-selected="false">View(Create)</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" id="showViewDiv-tab" data-toggle="tab" href="#showViewDiv" role="tab" aria-controls="showViewDiv" aria-selected="false">View(Show)</a>
+				  </li>
+
+
+
 
 				</ul>
 				<div class="tab-content" id="myTabContent">
@@ -134,6 +176,16 @@
 					  	<textarea id="request_string_output"></textarea>
 					  	<p><button id="generateRequest" type="button" class="btn btn-default">Gerar request</button></p>
 					  </div>
+					  <div class="tab-pane fade" id="createViewDiv" role="tabpanel" aria-labelledby="createViewDiv-tab">
+					  	<textarea id="createView_string_output"></textarea>
+					  	<p><button id="generateCreateView" type="button" class="btn btn-default">Gerar Create View </button></p>
+					  </div>
+					  <div class="tab-pane fade" id="showViewDiv" role="tabpanel" aria-labelledby="showViewDiv-tab">
+					  	<textarea id="showView_string_output"></textarea>
+					  	<p><button id="generateShowView" type="button" class="btn btn-default">Gerar Create View </button></p>
+					  </div>
+
+
 
 				</div>
 
@@ -147,11 +199,31 @@
 		</div>
 	</div>
 
-
-
-
 </section>
 
+<br>
+
+<select id="currentTable" name="currentTable" class="form-control-sm">
+<?php
+if ($handle = opendir('../tables')) {
+    // echo "Manipulador de diretório: $handle\n";
+    echo "Arquivos:\n<br>";
+
+    /* Esta é a forma correta de varrer o diretório */
+    while (false !== ($file = readdir($handle))) {
+        if(strlen($file)>2){
+        echo "<option>$file</option><";
+        }
+    }
+}else{
+    echo $_SERVER['REQUEST_URI'].'tables';
+    echo $handle;
+}
+?>
+</select>
+<br>
+Current table:
+<label id="currentTableStatic"></label>
 
 
 <!-- Optional JavaScript -->

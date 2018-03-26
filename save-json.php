@@ -19,10 +19,20 @@
 	class Index{
 		public function  UpdateTable(){
 			if(isset($_POST['jsonTableOutPut'])){
-					$fp = fopen('table1.json', 'w');
+
 					$response = $_POST['jsonTableOutPut'];
 					
 					$response = str_replace(" | " , "\n", $response);
+
+					// print_r(gettype($response));
+
+					$responseStringToJsonConvert = json_decode($response, true);
+
+					// print_r(gettype($data));
+					// print_r($data['current_table_path']);
+					$fp = fopen($responseStringToJsonConvert['current_table_path'], 'w');
+
+
 
 					fwrite($fp, $response); 
 					fclose($fp);

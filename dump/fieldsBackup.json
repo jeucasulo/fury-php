@@ -40,3 +40,14 @@ segunda versao
 }
 
 
+{
+	"table_name":"Paciente",
+	"singular":"paciente",
+	"plural":"pacientes",
+	"fields":[
+			{"id":1,"display_name":"Id","html_name":"id","html_type":"number","migration_type":"integer","nullable":"no","create_view_visibility":"","index_view_visibility":"","show_view_visibility":"","edit_view_visibility":"","default":"auto-increment"},
+			{"id":2,"display_name":"Nome","html_name":"nome","html_type":"text","migration_type":"varchar","nullable":"no","create_view_visibility":"","index_view_visibility":"","show_view_visibility":"","edit_view_visibility":"","default":""},
+			{"id":3,"display_name":"Data de nascimento","html_name":"birthday_date","html_type":"text","migration_type":"varchar","nullable":"","create_view_visibility":"","index_view_visibility":"","show_view_visibility":"","edit_view_visibility":"","default":""}
+	]
+}
+
