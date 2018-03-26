@@ -51,11 +51,7 @@ $(document).ready(function(){
 });
 
 var Globals = {
-	// TableName :"table1.json",
 	TableName :"../tables/"+ $("#currentTable").val(),
-	// tableName2 :"table2.json",
-	// TotalColumns : $("#totalColumnsInput").val(),
-
 };
 
 
@@ -152,6 +148,7 @@ var Index ={
 			}
 		});
 	},SetingCheckboxes:function(){
+		
 		let currentTable = Globals.TableName;
 
 		$.getJSON( currentTable, function( myObj ) {
@@ -162,6 +159,7 @@ var Index ={
 				myObj.fields[i].show_view_visibility == "true"?$("#show_view_visibility"+i).prop('checked', true):$("#show_view_visibility"+i).prop('checked', false);
 				myObj.fields[i].edit_view_visibility == "true"?$("#edit_view_visibility"+i).prop('checked', true):$("#edit_view_visibility"+i).prop('checked', false);
 				myObj.fields[i].nullable == "true"?$("#nullable"+i).prop('checked', true):$("#nullable"+i).prop('checked', false);
+				// alert(currentTable);
 				// alert(myObj.fields[i].nullable);
 				// $("#migration_type"+i).val(myObj.fields[i].migration_type);
 				// alert(myObj.fields[i].migration_type);
@@ -174,7 +172,6 @@ var Index ={
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
 		let current_table_path = $("#currentTableStatic").html();
-		alert(current_table_path);
 		let totalColumns = $("#totalColumns").html();
 		let newJsonFile = "{ | \n\t";
 		newJsonFile += "\"table_name\":\""+tableName+"\", | \n\t";
@@ -268,36 +265,6 @@ var Index ={
         newColumnHtml += "</br>";
         newColumnHtml += "</div>";
 
-        //
-            		// // fieldsList += "<div class='columnDiv row' id='divColumn"+[i]+"'>";
-        		    // fieldsList += "<div class='col-sm'><input type='text' id='display_name" + [i] + "' name='display_name" + [i] + "' value='" + myObj.fields[i].display_name + "' class='totalColumns form-control-sm' /></div>";
-        		    // fieldsList += "<div class='col-sm'><input type='text' id='html_name" + [i] + "' name='html_name" + [i] + "' value='" + myObj.fields[i].html_name + "' class='totalColumns form-control-sm' /> </div>";
-        		    // fieldsList += "<div class='col-sm'><select id='html_type" + [i] + "' name='html_type" + [i] + "'  class='totalColumns form-control-sm'>"+
-        						// 			    "<option value='text'>text</option>" +
-        						// 			    "<option value='checkbox'>checkbox</option>" +
-        						// 			    "<option value='number'>number</option>" +
-        						// 			    "<option value='image'>image</option>" +
-        						// 			    "<option value='email'>email</option>" +
-        						// 			    "<option value='password'>password</option>" +
-        						// 		    "</select></div>";
-        		    // fieldsList += "<div class='col-sm'><select id='migration_type" + [i] + "' name='migration_type" + [i] + "' class='form-control-sm'>" +
-        						// 		        "<option value='varchar'>varchar</option>" +
-        						// 		        "<option value='integer'>integer</option>" +
-        						// 		        "<option value='date'>date</option>" +
-        						// 		        "<option value='image'>image</option>" +
-        						// 		        "<option value='boolean'>boolean</option>" +
-        						// 		        "<option value='checkbox'>checkbox</option>" +
-        						// 	        "</select></div>";
-        	     //    fieldsList += "<div class='col-sm'><input type='text' id='nullable" + [i] + "' name='nullable" + [i] + "' value='" + myObj.fields[i].nullable + "'  class='form-control-sm' /> </div>";
-        	     //    fieldsList += "<div class='col-sm'><input type='text' id='default" + [i] + "' name='default" + [i] + "' value='" + myObj.fields[i].default + "'  class='form-control-sm' /> </div> ";
-        	     //    fieldsList += "<div class='col-sm'><button type='button' id='"+[i]+"' name='DeleteColumn"+[i]+"' class='deleteColumn btn btn-danger' onclick='Index.DeleteColumn(this)' >Remover</button> </div>";
-        	     //    fieldsList += "</br>";
-        	     //    fieldsList += "</div>";
-        	     //    fieldsList += "\n";
-
-        
-        //
-
         newColumnHtml += "\n";
         
 
@@ -336,7 +303,7 @@ var Index ={
 		  success: function(data){
 		  	$("#codeGenerator").slideDown("slow");
 		  	$("#tableSection").slideUp("slow");
-		    alert(data);
+		    // alert(data);
 		    console.log(data);
 		    // $('#success').html("<div class='alert alert-success'>");
 		    // $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")

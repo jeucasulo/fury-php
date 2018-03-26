@@ -70,16 +70,18 @@
 	  </div>
 	</nav>
 </section>
-	
+
+
+<div id="tutorialJson">
+	<p><a href="http://api.jquery.com/jquery.getjson/" target="_blank">Base</a></p>
+	<p><a href="https://stackoverflow.com/questions/14060271/jquery-getjson-and-each-looping-through-child-array-not-linked-to-parent-index?rq=1" target="_blank">Looping nests</a></p>
+</div>
+
+
 <section id="tableSection">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm">
-				<div id="tutorialJson">
-					<p><a href="http://api.jquery.com/jquery.getjson/" target="_blank">Base</a></p>
-					<p><a href="https://stackoverflow.com/questions/14060271/jquery-getjson-and-each-looping-through-child-array-not-linked-to-parent-index?rq=1" target="_blank">Looping nests</a></p>
-				</div>
-
 					<!-- INDEX -->
 					
 					<!-- <h1>Table</h1> -->
