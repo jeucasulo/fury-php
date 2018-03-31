@@ -4,6 +4,7 @@ $(document).ready(function(){
 	/*----------  Index  ----------*/
 	Index.HidingElements();
 	Index.GettingJsonTableData();
+	Index.GettingJsonConfigData();
 	Index.SetingSelects();
 	Index.SetingCheckboxes();
 	Index.CreatingNewJsonFile();
@@ -62,6 +63,9 @@ var Index ={
 		$("#lastId").hide();
 		$("#lastIdSpan").hide();
 		$("#codeGenerator").hide();
+		$("#totalColumnsSpan").hide();
+		$("#totalColumns").hide();
+		$("#totalColumnsInput").hide();
 	},
 	GettingJsonTableData:function(){
 
@@ -130,6 +134,13 @@ var Index ={
 			$("#tableSingular").val(myObj.singular);
 			$("#tablePlural").val(myObj.plural);
 			$("#lastId").html(lastId);
+		});
+	},
+	GettingJsonConfigData(){
+		// alert("config");
+		$.getJSON( "config.json", function( data ) {
+		  // alert(data.controller_path);
+		  $("#routes_path").val(data.routes_path);
 		});
 	},
 	SetingSelects:function(){
@@ -335,7 +346,7 @@ var Routes = {
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
 
-		let routes = "/*---------- "+tableName+" ----------*/\n";
+		let routes = "/*---------- BLOCK "+tableName+" CRUD----------*/\n";
 		routes += "Route::get('/crud/"+tableSingular+"', ['uses' => '"+tableName+"Controller@index', 'as' => 'cruds."+tableSingular+".index']);\n";
 		routes += "Route::get('/crud/"+tableSingular+"/show/{id}', ['uses' => '"+tableName+"Controller@show', 'as' => 'cruds."+tableSingular+".show']);\n";
 		routes += "Route::get('/crud/"+tableSingular+"/create', ['uses' => '"+tableName+"Controller@create', 'as' => 'cruds."+tableSingular+".create']);\n";
@@ -343,7 +354,7 @@ var Routes = {
 		routes += "Route::get('/crud/"+tableSingular+"/edit/{id}', ['uses' => '"+tableName+"Controller@edit', 'as' => 'cruds."+tableSingular+".edit']);\n";
 		routes += "Route::put('/crud/"+tableSingular+"/update/{id}', ['uses' => '"+tableName+"Controller@update', 'as' => 'cruds."+tableSingular+".update']);\n";
 		routes += "Route::get('/crud/"+tableSingular+"/destroy/{id}', ['uses' => '"+tableName+"Controller@destroy', 'as' => 'cruds."+tableSingular+".destroy']);\n";
-		routes += "/*---------- "+tableName+" ----------*/\n";
+		routes += "/*---------- BLOCK "+tableName+" CRUD----------*/\n";
 
 		$("#routes_string_output").html(routes);
 	},

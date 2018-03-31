@@ -9,6 +9,7 @@ var Index = {
 		// alert("sadf")
 		
 		$.getJSON( "config.json", function(data) {
+			$("#routesPath").val(data.routes_path);
 			$("#controllerPath").val(data.controller_path);
 			$("#modelPath").val(data.model_path);
 			$("#requestPath").val(data.request_path);
@@ -25,6 +26,7 @@ var Index = {
 	},
 	CreatingJsonConfigString:function(){
 
+		let routesPath = $("#routesPath").val();
 		let controllerPath = $("#controllerPath").val();
 		let modelPath = $("#modelPath").val();
 		let requestPath = $("#requestPath").val();
@@ -34,6 +36,7 @@ var Index = {
 
 		let jsonConfigString = "";
 		jsonConfigString += "{\n|\t";
+		jsonConfigString += "\"routes_path\":\""+routesPath+"\",\n|\t";
 		jsonConfigString += "\"controller_path\":\""+controllerPath+"\",\n|\t";
 		jsonConfigString += "\"model_path\":\""+modelPath+"\",\n|\t";
 		jsonConfigString += "\"request_path\":\""+requestPath+"\",\n|\t";

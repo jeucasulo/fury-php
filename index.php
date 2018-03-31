@@ -66,6 +66,7 @@
 	        <a class="nav-link" href="#">Configurações<span class="sr-only">(current)</span></a>
 	        <a class="nav-link" href="#">Instruções<span class="sr-only">(current)</span></a>
 	        <a class="nav-link" href="#">Tabelas<span class="sr-only">(current)</span></a>
+	        <a class="nav-link" href="#">CRUDS<span class="sr-only">(current)</span></a>
 	    </form>
 	  </div>
 	</nav>
@@ -90,10 +91,31 @@
 
 						<!-- Numero de colunas: <label id="totalColumns"></label> -->
 						<p><span id="lastIdSpan">(LastId:<span id="lastId"></span>)</span></p>
-						<span>Nome da tabela: </span><input type="text" id="tableName" name="tableName" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
+						Tabela
+						<select id="currentTable" name="currentTable" class="form-control-sm">
+						<?php
+						if ($handle = opendir('../tables')) {
+						    // echo "Manipulador de diretório: $handle\n";
+						    echo "Arquivos:\n<br>";
+
+						    /* Esta é a forma correta de varrer o diretório */
+						    while (false !== ($file = readdir($handle))) {
+						        if(strlen($file)>2){
+						        echo "<option>$file</option><";
+						        }
+						    }
+						}else{
+						    echo $_SERVER['REQUEST_URI'].'tables';
+						    echo $handle;
+						}
+						?>
+						</select>
+
+						<span>Nome: </span><input type="text" id="tableName" name="tableName" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
 						<span>Singular: </span><input type="text" id="tableSingular" name="tableSingular" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
 						<span>Plural: </span><input type="text" id="tablePlural" name="tablePlural" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
-						<span>Numero de colunas: </span><span id="totalColumns" name="totalColumns" class="badge badge-primary"></span> <input type="text" id="totalColumnsInput"/> &nbsp&nbsp&nbsp&nbsp
+						Arquivo:<label id="currentTableStatic"></label>
+						<span id="totalColumnsSpan">Numero de colunas: </span><span id="totalColumns" name="totalColumns" class="badge badge-primary"></span> <input type="text" id="totalColumnsInput"/> &nbsp&nbsp&nbsp&nbsp
 						<button type="button" id="addNewCOlumn" class="btn btn-info float-sm-right">Adicionar coluna</button>
 
 						<hr>
@@ -163,8 +185,12 @@
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					  <div class="tab-pane fade show active" id="routesDiv" role="tabpanel" aria-labelledby="home-tab">
-					  		<textarea id="routes_string_output"></textarea>
-					  		<p><button id="generateRoutes" type="button" class="btn btn-default">Gerar rotas</button></p>
+							<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveForm">
+						  		<textarea id="routes_string_output" name="routes_string_output"></textarea>
+						  		<label>Arquivo: &nbsp</label><input id="routes_path" name="routes_path"/>
+						  		<p><button id="generateRoutes" type="button" class="btn btn-info">Gerar rotas</button></p>
+						  		<p><button id="generateRoutesFile" class="btn btn-success">Gerar arquivo</button></p>
+					  		</form>
 					  </div>
 					  <div class="tab-pane fade" id="controllerDiv" role="tabpanel" aria-labelledby="controllerDiv-tab">
 					  	<textarea id="controller_string_output"></textarea>
@@ -205,27 +231,8 @@
 
 <br>
 
-<select id="currentTable" name="currentTable" class="form-control-sm">
-<?php
-if ($handle = opendir('../tables')) {
-    // echo "Manipulador de diretório: $handle\n";
-    echo "Arquivos:\n<br>";
-
-    /* Esta é a forma correta de varrer o diretório */
-    while (false !== ($file = readdir($handle))) {
-        if(strlen($file)>2){
-        echo "<option>$file</option><";
-        }
-    }
-}else{
-    echo $_SERVER['REQUEST_URI'].'tables';
-    echo $handle;
-}
-?>
-</select>
 <br>
-Current table:
-<label id="currentTableStatic"></label>
+
 
 
 <!-- Optional JavaScript -->

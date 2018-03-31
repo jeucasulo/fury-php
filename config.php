@@ -13,6 +13,10 @@
 <hr>
 <h1>Paths</h1>
 <p>Controller: 
+	<input type="text" id="routesPath" name="routesPath" />
+</p>
+
+<p>Controller: 
 	<input type="text" id="controllerPath" name="controllerPath" />
 </p>
 <p>Model: 
