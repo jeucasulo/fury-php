@@ -1,5 +1,5 @@
 {
-	"routes_path":"routes",
+	"routes_path":"routes/web.php",
 	"controller_path":"controller path",
 	"model_path":"model path",
 	"request_path":"request path",

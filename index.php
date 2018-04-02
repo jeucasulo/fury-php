@@ -47,6 +47,8 @@
 <body>
 
 
+
+
 <div class="se-pre-con"></div>
 
 
@@ -71,6 +73,8 @@
 	  </div>
 	</nav>
 </section>
+
+
 
 
 <div id="tutorialJson">
@@ -176,8 +180,17 @@
 				    <a class="nav-link" id="createViewDiv-tab" data-toggle="tab" href="#createViewDiv" role="tab" aria-controls="createViewDiv" aria-selected="false">View(Create)</a>
 				  </li>
 				  <li class="nav-item">
+				    <a class="nav-link" id="indexViewDiv-tab" data-toggle="tab" href="#indexViewDiv" role="tab" aria-controls="indexViewDiv" aria-selected="false">View(Index)</a>
+				  </li>
+				  <li class="nav-item">
 				    <a class="nav-link" id="showViewDiv-tab" data-toggle="tab" href="#showViewDiv" role="tab" aria-controls="showViewDiv" aria-selected="false">View(Show)</a>
 				  </li>
+
+				  <li class="nav-item">
+				    <a class="nav-link" id="editViewDiv-tab" data-toggle="tab" href="#editViewDiv" role="tab" aria-controls="editViewDiv" aria-selected="false">View(Edit)</a>
+				  </li>
+
+
 
 
 
@@ -185,33 +198,44 @@
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					  <div class="tab-pane fade show active" id="routesDiv" role="tabpanel" aria-labelledby="home-tab">
-							<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveForm">
+							<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveRoutesfile">
 						  		<textarea id="routes_string_output" name="routes_string_output"></textarea>
-						  		<label>Arquivo: &nbsp</label><input id="routes_path" name="routes_path"/>
+						  		<label>Arquivo: &nbsp</label>
+						  		<input id="routes_path" name="routes_path" class="form-control" hidden="hidden" />
+						  		<label id="routes_path_label" name="routes_path_label" class="form-control"></label>
 						  		<p><button id="generateRoutes" type="button" class="btn btn-info">Gerar rotas</button></p>
-						  		<p><button id="generateRoutesFile" class="btn btn-success">Gerar arquivo</button></p>
+						  		<p><button id="generateRoutesFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
 					  		</form>
 					  </div>
 					  <div class="tab-pane fade" id="controllerDiv" role="tabpanel" aria-labelledby="controllerDiv-tab">
 					  	<textarea id="controller_string_output"></textarea>
-					  	<p><button id="generateController" type="button" class="btn btn-default">Gerar controlador</button></p>
+					  	<p><button id="generateController" type="button" class="btn btn-info">Gerar controlador</button></p>
 					  </div>
 					  <div class="tab-pane fade" id="modelDiv" role="tabpanel" aria-labelledby="modelDiv-tab">
 					  	<textarea id="model_string_output"></textarea>
-					  	<p><button id="generateModel" type="button" class="btn btn-default">Gerar model</button></p>
+					  	<p><button id="generateModel" type="button" class="btn btn-info">Gerar model</button></p>
 					  </div>
 					  <div class="tab-pane fade" id="requestDiv" role="tabpanel" aria-labelledby="requestDiv-tab">
 					  	<textarea id="request_string_output"></textarea>
-					  	<p><button id="generateRequest" type="button" class="btn btn-default">Gerar request</button></p>
+					  	<p><button id="generateRequest" type="button" class="btn btn-info">Gerar request</button></p>
 					  </div>
 					  <div class="tab-pane fade" id="createViewDiv" role="tabpanel" aria-labelledby="createViewDiv-tab">
 					  	<textarea id="createView_string_output"></textarea>
-					  	<p><button id="generateCreateView" type="button" class="btn btn-default">Gerar Create View </button></p>
+					  	<p><button id="generateCreateView" type="button" class="btn btn-info">Gerar Create View </button></p>
+					  </div>
+					  <div class="tab-pane fade" id="indexViewDiv" role="tabpanel" aria-labelledby="indexViewDiv-tab">
+					  	<textarea id="indexView_string_output"></textarea>
+					  	<p><button id="generateIndexView" type="button" class="btn btn-info">Gerar Index View </button></p>
 					  </div>
 					  <div class="tab-pane fade" id="showViewDiv" role="tabpanel" aria-labelledby="showViewDiv-tab">
 					  	<textarea id="showView_string_output"></textarea>
-					  	<p><button id="generateShowView" type="button" class="btn btn-default">Gerar Create View </button></p>
+					  	<p><button id="generateShowView" type="button" class="btn btn-info">Gerar Create View </button></p>
 					  </div>
+					  <div class="tab-pane fade" id="editViewDiv" role="tabpanel" aria-labelledby="editViewDiv-tab">
+					  	<textarea id="editView_string_output"></textarea>
+					  	<p><button id="generateEditView" type="button" class="btn btn-info">Gerar Edit View </button></p>
+					  </div>
+
 
 
 
@@ -229,19 +253,38 @@
 
 </section>
 
-<br>
 
 <br>
+<!-- Modal -->
+<div id="messageModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog bg-success" role="document">
+    <div class="modal-content">
+      <div id="modal-header" class="modal-header">
+        <h5 id="modal-title" class="modal-title" id="exampleModalLabel">Êxito</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body">
+        Operação realizada com sucesso!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 

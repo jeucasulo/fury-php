@@ -95,15 +95,23 @@
 		public function UpdateRoutes(){
 			if(isset($_POST['routes_string_output'])){
 				
-				echo($_POST['routes_path']);
+				// echo($_POST['routes_path']);
 				// $fp = fopen('web.php', 'w');
 				
 
 				// if contains string on file
-				// if( strpos(file_get_contents("web.php"),$_GET['id']) !== false) {
-				//     // do stuff
-				// }
+				if( strpos(file_get_contents($_POST['routes_path']),$_POST['routes_string_output']) !== false) {
+				    $response = array("title"=>"Atenção","message"=>"Rotas já existem","class"=>"bg-warning");
+				    // echo json_encode($response);
+
+				} else{
+					// echo "Rotas inseridas com sucesso!";
+					// appends routes to the web file
+					$myfile = file_put_contents($_POST['routes_path'], $_POST['routes_string_output'] , FILE_APPEND | LOCK_EX);
+					$response = array("title"=>"Êxito","message"=>"Rotas inseridas com sucesso!","class"=>"bg-success");
+				}
 				
+			    echo json_encode($response);
 
 				// $response = strip_tags($_POST['navOutput']);
 				
@@ -114,10 +122,9 @@
 				// echo "foi";
 				// 
 				// $myfile = file_put_contents('web.php', $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
-				// $myfile = file_put_contents('web.php', $_POST['routes_string_output'] , FILE_APPEND | LOCK_EX);
 
 			}else{
-				echo "fudeu";
+				echo "Erro PHP script";
 			}
 
 		}

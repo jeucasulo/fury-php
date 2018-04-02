@@ -16,6 +16,7 @@ $(document).ready(function(){
 
 	/*----------  Routes  ----------*/
 	$("#generateRoutes").click(Routes.GenerateRoutesString);
+	$("#generateRoutesFile").click(Routes.GenerateRoutesFile);
 
 	/*----------  Controller  ----------*/
 	$("#generateController").click(Controller.GenerateControllerString);
@@ -29,17 +30,19 @@ $(document).ready(function(){
 	/*----------  Views  ----------*/
 	$("#generateCreateView").click(Views.GenerateCreateView);
 	$("#generateShowView").click(Views.GenerateShowView);
+	$("#generateIndexView").click(Views.GenerateIndexView);
+	$("#generateEditView").click(Views.GenerateEditView);
 
 
 
 
 
-	$("#currentTableStatic").html(Globals.TableName);
+	$("#currentTableStatic").html(Globals.CurrentTableName);
 
 
 	$("#currentTable").on("change", function(){
-			Globals.TableName = "../tables/"+ $("#currentTable").val();
-			$("#currentTableStatic").html(Globals.TableName);			
+			Globals.CurrentTableName = "../tables/"+ $("#currentTable").val();
+			$("#currentTableStatic").html(Globals.CurrentTableName);			
 			Index.GettingJsonTableData();
 			Index.SetingSelects();
 			Index.SetingCheckboxes();
@@ -52,7 +55,12 @@ $(document).ready(function(){
 });
 
 var Globals = {
-	TableName :"../tables/"+ $("#currentTable").val(),
+	CurrentTableName :"../tables/"+ $("#currentTable").val(),
+	tableName : $("#tableName").val(),
+	tableSingular : $("#tableSingular").val(),
+	tablePlural : $("#tablePlural").val(),
+	current_table_path : $("#currentTableStatic").html(),
+	totalColumns : $("#totalColumns").html(),
 };
 
 
@@ -66,10 +74,11 @@ var Index ={
 		$("#totalColumnsSpan").hide();
 		$("#totalColumns").hide();
 		$("#totalColumnsInput").hide();
+		$("#mainAlertDiv").hide();
 	},
 	GettingJsonTableData:function(){
 
-			let currentTable = Globals.TableName;
+			let currentTable = Globals.CurrentTableName;
 			// console.log("GettingJsonTableData. CurrentTable: "+currentTable);
 			let fieldsList ="";
 			
@@ -101,10 +110,10 @@ var Index ={
 								        "</select></div>";
 		        fieldsList += "<div class='col-custom-sm'><input type='checkbox' id='nullable" + [i] + "' name='nullable" + [i] + "' value='" + myObj.fields[i].nullable + "'  class='form-control-sm' /> </div>";
 		        fieldsList += "<div class='col-custom'>"+
-		        	"<input title='Create | Index | Show | Edit' type='checkbox' id='create_view_visibility"+[i]+"' name='create_view_visibility" + myObj.fields[i].create_view_visibility + "' class='form-control-sm' />"+
-		        	"<input type='checkbox' id='index_view_visibility"+[i]+"' name='index_view_visibility" + myObj.fields[i].index_view_visibility + "' class='form-control-sm ' />"+
-		        	"<input type='checkbox' id='show_view_visibility"+[i]+"' name='show_view_visibility" + myObj.fields[i].show_view_visibility + "' class='form-control-sm' />"+
-		        	"<input type='checkbox' id='edit_view_visibility"+[i]+"' name='edit_view_visibility" + myObj.fields[i].edit_view_visibility + "' class='form-control-sm' />"+
+		        	"<input title='Create | Index | Show | Edit' type='checkbox' id='create_view_visibility"+[i]+"' name='create_view_visibility' value='" + myObj.fields[i].create_view_visibility + "' class='form-control-sm' />"+
+		        	"<input type='checkbox' id='index_view_visibility"+[i]+"' name='index_view_visibility' value='" + myObj.fields[i].index_view_visibility + "' class='form-control-sm ' />"+
+		        	"<input type='checkbox' id='show_view_visibility"+[i]+"' name='show_view_visibility' value='" + myObj.fields[i].show_view_visibility + "' class='form-control-sm' />"+
+		        	"<input type='checkbox' id='edit_view_visibility"+[i]+"' name='edit_view_visibility' value='" + myObj.fields[i].edit_view_visibility + "' class='form-control-sm' />"+
 		        	"</div> ";
 		        
 	            fieldsList += "<div class='col-custom'><select id='index" + [i] + "' name='index" + [i] + "' class='form-control-sm'>" +
@@ -141,11 +150,13 @@ var Index ={
 		$.getJSON( "config.json", function( data ) {
 		  // alert(data.controller_path);
 		  $("#routes_path").val(data.routes_path);
+		  $("#routes_path_label").html(data.routes_path);
 		});
 	},
 	SetingSelects:function(){
 
-		let currentTable = Globals.TableName;
+
+		let currentTable = Globals.CurrentTableName;
 
 		$.getJSON( currentTable, function( myObj ) {
 			// alert(currentTable);
@@ -160,7 +171,7 @@ var Index ={
 		});
 	},SetingCheckboxes:function(){
 		
-		let currentTable = Globals.TableName;
+		let currentTable = Globals.CurrentTableName;
 
 		$.getJSON( currentTable, function( myObj ) {
 			for (i = 0; i < myObj.fields.length; i++) {
@@ -250,34 +261,50 @@ var Index ={
 		let newTotalColumns = (parseInt($("#totalColumns").html()) + 1);
 		let newColumnHtml = "";
 
-	    newColumnHtml += "<div class='columnDiv row' id='divColumn"+newColumnId+"'>";
-	    newColumnHtml += "<div class='col-sm'><input type='text' id='display_name" + newColumnId + "' name='display_name" + newColumnId + "' value='"+newColumnId+"' class='totalColumns form-control-sm' /> </div>";
-	    // newColumnHtml += "Display name: <input type='text' id='display_name" + newColumnId + "' name='display_name" + newColumnId + "' value='' class='totalColumns' /> &nbsp";
-	    newColumnHtml += "<div class='col-sm'><input type='text' id='html_name" + newColumnId + "' name='html_name" + newColumnId + "' value='' class='totalColumns form-control-sm' /> </div>";
-	    newColumnHtml += "<div class='col-sm'><select id='html_type" + newColumnId + "' name='html_type" + newColumnId + "'  class='totalColumns form-control-sm'>"+
-								    "<option value='text'>text</option>" +
-								    "<option value='checkbox'>checkbox</option>" +
-								    "<option value='number'>number</option>" +
-								    "<option value='image'>image</option>" +
-								    "<option value='email'>email</option>" +
-								    "<option value='password'>password</option>" +
-							    "</select> </div>";
-	    newColumnHtml += "<div class='col-sm'><select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' class='form-control-sm'> " +
-							        "<option value='varchar'>varchar</option>" +
-							        "<option value='integer'>integer</option>" +
-							        "<option value='date'>date</option>" +
-							        "<option value='image'>image</option>" +
-							        "<option value='boolean'>boolean</option>" +
-							        "<option value='checkbox'>checkbox</option>" +
-						        "</select> </div>";
-        newColumnHtml += "<div class='col-sm'><input type='text' id='nullable" + newColumnId + "' name='nullable" + newColumnId + "' value=''  class='form-control-sm' /> </div> ";
-        newColumnHtml += "<div class='col-sm'><input type='text' id='default" + newColumnId + "' name='default" + newColumnId + "' value='' class='form-control-sm' /> </div>";
-        newColumnHtml += "<div class='col-sm'><button type='button' id='"+newColumnId+"' name='DeleteColumn"+newColumnId+"' class='deleteColumn btn btn-danger' onclick='Index.DeleteColumn(this)' >Remover</button> </div>";
-        newColumnHtml += "</br>";
-        newColumnHtml += "</div>";
+	    		newColumnHtml += "<div class='columnDiv row text-center' id='divColumn"+newColumnId+"'>";
+			    newColumnHtml += "<div class='col-custom'><input type='text' id='display_name" + newColumnId + "' name='display_name" + newColumnId + "' value='column"+newColumnId+"' class='totalColumns form-control-sm' /></div>";
+			    newColumnHtml += "<div class='col-custom'><input type='text' id='html_name" + newColumnId + "' name='html_name" + newColumnId + "' value='' class='totalColumns form-control-sm' /> </div>";
+			    newColumnHtml += "<div class='col-custom'><select id='html_type" + newColumnId + "' name='html_type" + newColumnId + "'  class='totalColumns form-control-sm'>"+
+										    "<option value='text'>text</option>" +
+										    "<option value='checkbox'>checkbox</option>" +
+										    "<option value='number'>number</option>" +
+										    "<option value='image'>image</option>" +
+										    "<option value='email'>email</option>" +
+										    "<option value='password'>password</option>" +
+									    "</select></div>";
+			    newColumnHtml += "<div class='col-custom'><select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' class='form-control-sm'>" +
+									        "<option value='varchar'>varchar</option>" +
+									        "<option value='integer'>integer</option>" +
+									        "<option value='date'>date</option>" +
+									        "<option value='image'>image</option>" +
+									        "<option value='boolean'>boolean</option>" +
+									        "<option value='checkbox'>checkbox</option>" +
+								        "</select></div>";
+		        newColumnHtml += "<div class='col-custom-sm'><input type='checkbox' id='nullable" + newColumnId + "' name='nullable" + newColumnId + "' value=''  class='form-control-sm' /> </div>";
+		        newColumnHtml += "<div class='col-custom'>"+
+		        	"<input title='Create | Index | Show | Edit' type='checkbox' id='create_view_visibility"+newColumnId+"' name='create_view_visibility' value='' class='form-control-sm' />"+
+		        	"<input type='checkbox' id='index_view_visibility"+newColumnId+"' name='index_view_visibility' value='' class='form-control-sm ' />"+
+		        	"<input type='checkbox' id='show_view_visibility"+newColumnId+"' name='show_view_visibility' value='' class='form-control-sm' />"+
+		        	"<input type='checkbox' id='edit_view_visibility"+newColumnId+"' name='edit_view_visibility' value='' class='form-control-sm' />"+
+		        	"</div> ";
+		        
+	            newColumnHtml += "<div class='col-custom'><select id='index" + newColumnId + "' name='index" + newColumnId + "' class='form-control-sm'>" +
+	        						        "<option value='none'>- - -</option>" +
+	        						        "<option value='PK'>PK</option>" +
+	        						        "<option value='Index'>Index</option>" +
+	        						        "<option value='Unique'>Unique</option>" +
+	        					        "</select></div>";
 
-        newColumnHtml += "\n";
-        
+		        newColumnHtml += "<div class='col-custom'><input type='text' id='default" + newColumnId + "' name='default" + newColumnId + "' value=''  class='form-control-sm' /> </div> ";
+
+		        
+		        newColumnHtml += "<div class='col-custom'><button type='button' id='"+newColumnId+"' name='DeleteColumn"+newColumnId+"' class='deleteColumn btn btn-danger btn-sm' onclick='Index.DeleteColumn(this)' >X</button> </div>";
+		        newColumnHtml += "</br>";
+		        newColumnHtml += "</div>";
+		        newColumnHtml += "\n";
+
+
+
 
         $("#lastId").html(parseInt(lastId)+1);
 
@@ -337,6 +364,14 @@ var Index ={
 		});
 	}
 };
+var Message = {
+	ShowMessage:function(dataTitle, dataMessage,dataClass){
+		$("#modal-title").html(dataTitle);
+		$("#modal-body").html(dataMessage);
+		$("#modal-header").addClass(dataClass);
+		$("#messageModal").modal("show");
+	}
+};
 var Routes = {
 	/*----------  Subsection comment block  ----------*/
 	
@@ -357,6 +392,27 @@ var Routes = {
 		routes += "/*---------- BLOCK "+tableName+" CRUD----------*/\n";
 
 		$("#routes_string_output").html(routes);
+
+	},
+	GenerateRoutesFile:function(){
+		
+		var formData = $("#saveRoutesfile").serialize();
+		$.ajax({
+          dataType: "json", // data to receive
+		  data:  formData, // data to be send
+		  type: "POST",
+		  url: "save-json.php",
+		  
+		  success: function(data){
+		  	Message.ShowMessage(data.title,data.message,data.class);
+		  },
+		  error: function(data){
+		  	// alert(data);
+		  	Message.ShowMessage("Erro","Javascript ","bg-danger");
+		  }
+		  
+		});
+
 	},
 };
 var Controller = {
@@ -591,61 +647,139 @@ var Request = {
 var Views = {
 	GenerateCreateView:function(){
 			    
-			    let tableSingular = $("#tableSingular").val();
-			    let tablePlural = $("#tablePlural").val();
-			    let totalColumns = $("#totalColumns").html();
+	    let tableSingular = $("#tableSingular").val();
+	    let tablePlural = $("#tablePlural").val();
+	    let totalColumns = $("#totalColumns").html();
 
-			    let createViewStringPhp = "";
-			    createViewStringPhp +="\n §<form id='saveForm' class='form-horizontal' role='form' method='POST' action='{\{route(\"cruds."+tableSingular+".store\")}}' enctype='multipart/form-data'>";
-			    createViewStringPhp +="\n §{\{ csrf_field() }\}";
+	    let createViewStringPhp = "";
+	    createViewStringPhp +="\n §<form id='saveForm' class='form-horizontal' role='form' method='POST' action='{\{route(\"cruds."+tableSingular+".store\")}}' enctype='multipart/form-data'>";
+	    createViewStringPhp +="\n §{\{ csrf_field() }\}";
 
-			    for (var i = 0; i < totalColumns; i++) {
+	    for (var i = 0; i < totalColumns; i++) {
 
-			    	let display_name = $("#display_name"+i).val();
-			    	let html_name = $("#html_name"+i).val();
-			    	let html_type = $("#html_type"+i).val();
-			    	let migration_type = $("#migration_type"+i).val();
-			    	let nullable = $("#nullable"+i).val();
-			    	let create_view_visibility = $("#create_view_visibility"+i).is(":checked");
-			    	let defaults = $("#default"+i).val();
-		    	
-			    	if (create_view_visibility) {
-			            createViewStringPhp +="\n §<!-- --------------------------------"+display_name+"-------------------------------- -->\n §";
-			            createViewStringPhp +="<div class='form-group{\{ $errors->has(\""+html_name+"\") ? \" has-error\" : \"\" }}'>";
-			            createViewStringPhp +="\n §\t";
-			            createViewStringPhp +="<label for='"+html_name+"' class='col-md-4 control-label'>"+display_name+"</label>";
-			            createViewStringPhp +="\n §\t";
-			            createViewStringPhp +="<div class='col-md-6'>";
-			            createViewStringPhp +="\n §\t\t";
-			            createViewStringPhp +="<input id='"+html_name+"' type='"+html_type+"' class='form-control' name='"+html_name+"' placeholder='"+html_type+"/"+migration_type+"'>";
-			            createViewStringPhp +="\n §\t\t";
-			            createViewStringPhp +="@\if ($errors->has(\""+html_name+"\"))";
-			            createViewStringPhp +="\n §\t\t\t";
-			            createViewStringPhp +="<span class='help-block'>\n §\t\t\t\t <strong>{\{ $errors->first(\""+html_name+"\") }}</strong>\n §\t\t\t </span>";
-			            createViewStringPhp +="\n §\t\t";
-			            createViewStringPhp +="@\endif \n §\t</div>\n §</div>";
-			            createViewStringPhp +="\n §<!-- --------------------------------/"+display_name+"-------------------------------- -->\n §";
-		            }else{
-		            	createViewStringPhp =+ "";
-		            	// totalColumns++;
-		            }
-			    }
+	    	let display_name = $("#display_name"+i).val();
+	    	let html_name = $("#html_name"+i).val();
+	    	let html_type = $("#html_type"+i).val();
+	    	let migration_type = $("#migration_type"+i).val();
+	    	let nullable = $("#nullable"+i).val();
+	    	let create_view_visibility = $("#create_view_visibility"+i).is(":checked");
+	    	let defaults = $("#default"+i).val();
+    	
+	    	if (create_view_visibility) {
+	            createViewStringPhp +="\n §<!-- --------------------------------"+display_name+"-------------------------------- -->\n §";
+	            createViewStringPhp +="<div class='form-group{\{ $errors->has(\""+html_name+"\") ? \" has-error\" : \"\" }}'>";
+	            createViewStringPhp +="\n §\t";
+	            createViewStringPhp +="<label for='"+html_name+"' class='col-md-4 control-label'>"+display_name+"</label>";
+	            createViewStringPhp +="\n §\t";
+	            createViewStringPhp +="<div class='col-md-6'>";
+	            createViewStringPhp +="\n §\t\t";
+	            createViewStringPhp +="<input id='"+html_name+"' type='"+html_type+"' class='form-control' name='"+html_name+"' placeholder='"+html_type+"/"+migration_type+"'>";
+	            createViewStringPhp +="\n §\t\t";
+	            createViewStringPhp +="@\if ($errors->has(\""+html_name+"\"))";
+	            createViewStringPhp +="\n §\t\t\t";
+	            createViewStringPhp +="<span class='help-block'>\n §\t\t\t\t <strong>{\{ $errors->first(\""+html_name+"\") }}</strong>\n §\t\t\t </span>";
+	            createViewStringPhp +="\n §\t\t";
+	            createViewStringPhp +="@\endif \n §\t</div>\n §</div>";
+	            createViewStringPhp +="\n §<!-- --------------------------------/"+display_name+"-------------------------------- -->\n §";
+            }else{
+            	createViewStringPhp =+ "";
+            	// totalColumns++;
+            }
+	    }
 
-			    createViewStringPhp +="\n §<div class='form-group'>";
-			    createViewStringPhp +="\n §<label for='' class='col-md-4 control-label'></label>";
-			    createViewStringPhp +="\n §<div class='col-md-6'>";
-			    createViewStringPhp +="\n §<button class='btn btn-info'>Adicionar</button>";
-			    createViewStringPhp +="\n §</div>";
-			    createViewStringPhp +="\n §</div>";
+	    createViewStringPhp +="\n §<div class='form-group'>";
+	    createViewStringPhp +="\n §<label for='' class='col-md-4 control-label'></label>";
+	    createViewStringPhp +="\n §<div class='col-md-6'>";
+	    createViewStringPhp +="\n §<button class='btn btn-info'>Adicionar</button>";
+	    createViewStringPhp +="\n §</div>";
+	    createViewStringPhp +="\n §</div>";
 
-			    createViewStringPhp +="\n §</form>";
-			    createViewStringJs = createViewStringPhp.replace(/[§]/g,"");
+	    createViewStringPhp +="\n §</form>";
+	    createViewStringJs = createViewStringPhp.replace(/[§]/g,"");
 
-			    $("#createView_string_output").val(createViewStringJs);
+	    $("#createView_string_output").val(createViewStringJs);
 
 	},
 	GenerateIndexView:function(){
+		let col_id = "id";
+		let tableName = $("#tableName").val();
+		let tableSingular = $("#tableSingular").val();
+		let tablePlural = $("#tablePlural").val();
+		let totalColumns = $("#totalColumns").html();
 
+		indexViewStringPhp = "";
+
+		//horizontal
+		indexViewStringPhp += "\n §<!-- horizontal -->\n § \n §";
+		indexViewStringPhp += "<div class='container'>\n § \t <div class='row'> \n § \t\t<div class='col-xs-12'>\n §";
+		indexViewStringPhp += "\n §\t\t<h1>All<small>(horizontal) <a href='{\{route(\"cruds."+tableSingular+".create\")}}'><span class='glyphicon glyphicon-plus pull-right'></span></small></a></h1> \n §";
+		indexViewStringPhp +="\t\t\t<div id='masterDiv'>\n §";
+		indexViewStringPhp += "\t\t\t@"+"foreach";
+		indexViewStringPhp += "($" + tablePlural + " as $" + tableSingular + ")\n §";
+		indexViewStringPhp +="\t\t\t<div class='rowDiv'>\n §";
+		    for (var i = 0; i < totalColumns; i++) {
+
+		    	let display_name = $("#display_name"+i).val();
+		    	let html_name = $("#html_name"+i).val();
+		    	let html_type = $("#html_type"+i).val();
+		    	let migration_type = $("#migration_type"+i).val();
+		    	let nullable = $("#nullable"+i).val();
+		    	let index_view_visibility = $("#index_view_visibility"+i).is(":checked");
+		    	let defaults = $("#default"+i).val();
+
+
+
+				if (index_view_visibility) {
+		        	indexViewStringPhp +="\t\t\t<div class='insideDiv'> <h6>{\{$"+tableSingular+"->" +html_name + "}}</h6></div>\n §";
+		    	}
+		    }
+		    indexViewStringPhp +="\t\t\t<div class='insideDiv text-right'>\n § \t\t\t<a href='{\{route('cruds."+tableSingular+".show',$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span></a>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='{\{route('cruds."+tableSingular+".edit',$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+		    indexViewStringPhp +="\n § \t\t\t<a href='#' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+		    indexViewStringPhp +="\n § \t\t\t</div>\n §";
+		    
+		indexViewStringPhp +="\t\t\t</div>\n §";
+		indexViewStringPhp += "\t\t\t@\endforeach \n §";
+		indexViewStringPhp +="\t\t\t</div>";
+		indexViewStringPhp += "\n § \t\t</div> \n §\t</div> \n §</div> \n §";
+
+		indexViewStringPhp += "<br><br><br>";
+
+		//vertical
+		indexViewStringPhp += "\n §<!-- vertical -->\n § \n §";
+		indexViewStringPhp += "\n §<div class='container'> \n § \t<div class='row'> \n § \t\t<div class='col-xs-12'>";
+		indexViewStringPhp += "\n §\t\t<h1>All<small>(vertical)<small></h1>\n §";
+		indexViewStringPhp += "\n §\t\t\t@"+"foreach";
+		indexViewStringPhp += "($" + tablePlural + " as $" + tableSingular + ")";
+		    indexViewStringPhp += "\n §\t\t\t<div class='col-xs-3 card'>";
+		        for (var i = 0; i < totalColumns; i++) {
+
+		        	let display_name = $("#display_name"+i).val();
+		        	let html_name = $("#html_name"+i).val();
+		        	let html_type = $("#html_type"+i).val();
+		        	let migration_type = $("#migration_type"+i).val();
+		        	let nullable = $("#nullable"+i).val();
+		        	let index_view_visibility = $("#index_view_visibility"+i).is(":checked");
+		        	let defaults = $("#default"+i).val();
+
+		        	if (index_view_visibility) {
+		            	indexViewStringPhp += "\n §\t\t\t <h5> {\{$"+tableSingular+"->" +html_name + "}}</h5>";
+		        	}
+		        }
+		    indexViewStringPhp +="\n §\t\t\t<div class='text-center'>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route('cruds."+tableSingular+".show',$"+tableSingular+"->"+col_id+")}}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span></a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='{\{route('cruds."+tableSingular+".edit',$"+tableSingular+"->"+col_id+")}}' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span></a>";
+		    indexViewStringPhp +="\n §\t\t\t<a href='#' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></a>";
+		    indexViewStringPhp +="\n §\t\t\t</div> ";
+		    indexViewStringPhp += "\n §\t\t\t<br>\n §</div>";
+		indexViewStringPhp += "\n §\t\t\t@\endforeach \n §";
+		indexViewStringPhp += "\t\t</div> \n § \t</div> \n §</div>";
+		indexViewStringPhp += "\n §@"+"endsection";
+
+		indexViewStringJs = indexViewStringPhp.replace(/[§]/g,"");
+
+
+		$("#indexView_string_output").val(indexViewStringJs);
 	},
 	GenerateShowView:function(){
 		    let tableSingular = $("#tableSingular").val();
@@ -721,6 +855,92 @@ var Views = {
 	},
 	GenerateEditView:function(){
 		
+		let tableSingular = $("#tableSingular").val();
+		let tablePlural = $("#tablePlural").val();
+		let totalColumns = $("#totalColumns").html();
+
+
+	    var editViewStringPhp = "";
+
+	    editViewStringPhp += "@\extends('layouts.app') \n §";
+	    editViewStringPhp += "@\section('title','Show') \n §";
+	    editViewStringPhp += "@\section('content') \n § ";
+
+	    editViewStringPhp +="\n §<div class='container'>";
+	    editViewStringPhp +="\n §<div class='row'>";
+	    editViewStringPhp +="\n §<div class='col-md-10 col-md-offset-1'>";
+	    editViewStringPhp +="\n §<div class='panel panel-default'>";
+	    editViewStringPhp +="\n §<div class='panel-body'>";
+	    editViewStringPhp +="\n §<div class='col-md-12'>";
+	    //editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\'cruds.user.update\', "+"$"+singular+"->id)}}' enctype='multipart/form-data'>";
+	    //editViewStringPhp +="\n §<input type='hidden' name='_method' value='put'>";
+	    //editViewStringPhp +="\n §{\{ csrf_field() }\}";
+
+
+
+	    for (var i = 0; i < totalColumns; i++) {
+
+	    	let display_name = $("#display_name"+i).val();
+	    	let html_name = $("#html_name"+i).val();
+	    	let html_type = $("#html_type"+i).val();
+	    	let migration_type = $("#migration_type"+i).val();
+	    	let nullable = $("#nullable"+i).val();
+	    	let edit_view_visibility = $("#edit_view_visibility"+i).is(":checked");
+	    	let defaults = $("#default"+i).val();
+
+	    	
+	    	if (edit_view_visibility) {
+		        editViewStringPhp +="<!-- --------------------------------"+html_name+"-------------------------------- -->\n §";
+		        editViewStringPhp +="<div class='form-group{\{ $errors->has(\""+html_name+"\") ? \" has-error\" : \"\" }}'>";
+		        editViewStringPhp +="\n §\t";
+		        editViewStringPhp +="<label for='"+html_name+"' class='col-md-4 control-label'>"+display_name+"</label>";
+		        editViewStringPhp +="\n §\t";
+		        editViewStringPhp +="<div class='col-md-6'>";
+		        editViewStringPhp +="\n §\t\t";
+		        editViewStringPhp +="<label id='"+html_name+"' type='"+html_type+"' class='form-control' name='"+html_name+"'>{\{$"+tableSingular+"->"+html_name+"}}<label>";
+		        editViewStringPhp +="\n §\t\t";
+		        editViewStringPhp +="@\if ($errors->has(\""+html_name+"\"))";
+		        editViewStringPhp +="\n §\t\t\t";
+		        editViewStringPhp +="<span class='help-block'>\n §\t\t\t\t <strong>{\{ $errors->first(\""+html_name+"\") }}</strong>\n §\t\t\t </span>";
+		        editViewStringPhp +="\n §\t\t";
+		        editViewStringPhp +="@\endif \n §\t</div>\n §</div>";
+		        editViewStringPhp +="\n §<!-- --------------------------------/"+html_name+"-------------------------------- -->\n §";
+	    	}
+	    }
+
+	    editViewStringPhp +="\n §<div class='form-group'>";
+	    editViewStringPhp +="\n §<label for='' class='col-md-4 control-label'></label>";
+	    editViewStringPhp +="\n §<div class='col-md-6'>";
+	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".index')}}' class='btn btn-info'>Voltar</a>";
+	    editViewStringPhp +="\n §<br><br>";
+	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$previous)}}' class='glyphicon glyphicon-chevron-left'></a>";
+	    editViewStringPhp +="\n §<span class='badge'>{\{$id}}</span>";
+	    editViewStringPhp +="\n §<a href='{\{route('cruds."+tableSingular+".show',$next)}}' class='glyphicon glyphicon-chevron-right'></a>";
+	    editViewStringPhp +="\n §</div>";
+	    editViewStringPhp +="\n §</div>";
+
+	    //editViewStringPhp +="\n §</form>";
+
+	    editViewStringPhp +="\n §</div> ";
+	    editViewStringPhp +="\n §</div> ";
+	    editViewStringPhp +="\n §</div> ";
+	    editViewStringPhp +="\n §</div> ";
+	    editViewStringPhp +="\n §</div> ";
+	    editViewStringPhp +="\n §</div> ";
+
+
+	    editViewStringPhp +="\n §@"+"endsection";
+
+
+	    editViewStringJs = editViewStringPhp.replace(/[§]/g,"");
+	    console.log(editViewStringJs);
+
+
+	    $("#editView_string_output").val(editViewStringJs);    
+
+
+
+
 	}
 };
 

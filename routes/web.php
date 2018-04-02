@@ -77,3 +77,12 @@ Route::get('s3-image-upload','S3ImageController@imageUpload');
 Route::post('s3-image-upload','S3ImageController@imageUploadPost');
 // apagar s3 file upload test
 
+/*---------- BLOCK Paciente CRUD----------*/
+Route::get('/crud/paciente', ['uses' => 'PacienteController@index', 'as' => 'cruds.paciente.index']);
+Route::get('/crud/paciente/show/{id}', ['uses' => 'PacienteController@show', 'as' => 'cruds.paciente.show']);
+Route::get('/crud/paciente/create', ['uses' => 'PacienteController@create', 'as' => 'cruds.paciente.create']);
+Route::post('/crud/paciente/store', ['uses' => 'PacienteController@store', 'as' => 'cruds.paciente.store']);
+Route::get('/crud/paciente/edit/{id}', ['uses' => 'PacienteController@edit', 'as' => 'cruds.paciente.edit']);
+Route::put('/crud/paciente/update/{id}', ['uses' => 'PacienteController@update', 'as' => 'cruds.paciente.update']);
+Route::get('/crud/paciente/destroy/{id}', ['uses' => 'PacienteController@destroy', 'as' => 'cruds.paciente.destroy']);
+/*---------- BLOCK Paciente CRUD----------*/

@@ -12,7 +12,7 @@
 <h1 title="fodaci">Configuração</h1>
 <hr>
 <h1>Paths</h1>
-<p>Controller: 
+<p>Routes: 
 	<input type="text" id="routesPath" name="routesPath" />
 </p>
 
