@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang=”pt-br”>
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -74,8 +74,16 @@
 	</nav>
 </section>
 
-
-
+<div id="hiddenLabels" class="container">
+	<div id="" class="row">
+		<div id="" class="col-12-xs">
+			<label id="table_name_label"></label><br>
+			<label id="table_singular_label"></label><br>
+			<label id="table_plural_label"></label><br>
+			<label id="totalColumns" name="totalColumns" class="badge badge-primary"></label><br>
+		</div>
+	</div>
+</div>
 
 <div id="tutorialJson">
 	<p><a href="http://api.jquery.com/jquery.getjson/" target="_blank">Base</a></p>
@@ -119,7 +127,7 @@
 						<span>Singular: </span><input type="text" id="tableSingular" name="tableSingular" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
 						<span>Plural: </span><input type="text" id="tablePlural" name="tablePlural" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
 						Arquivo:<label id="currentTableStatic"></label>
-						<span id="totalColumnsSpan">Numero de colunas: </span><span id="totalColumns" name="totalColumns" class="badge badge-primary"></span> <input type="text" id="totalColumnsInput"/> &nbsp&nbsp&nbsp&nbsp
+						&nbsp&nbsp&nbsp&nbsp
 						<button type="button" id="addNewCOlumn" class="btn btn-info float-sm-right">Adicionar coluna</button>
 
 						<hr>
@@ -177,17 +185,17 @@
 				    <a class="nav-link" id="requestDiv-tab" data-toggle="tab" href="#requestDiv" role="tab" aria-controls="requestDiv" aria-selected="false">Request</a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" id="createViewDiv-tab" data-toggle="tab" href="#createViewDiv" role="tab" aria-controls="createViewDiv" aria-selected="false">View(Create)</a>
+				    <a class="nav-link" id="createViewDiv-tab" data-toggle="tab" href="#createViewDiv" role="tab" aria-controls="createViewDiv" aria-selected="false">(Create)</a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" id="indexViewDiv-tab" data-toggle="tab" href="#indexViewDiv" role="tab" aria-controls="indexViewDiv" aria-selected="false">View(Index)</a>
+				    <a class="nav-link" id="indexViewDiv-tab" data-toggle="tab" href="#indexViewDiv" role="tab" aria-controls="indexViewDiv" aria-selected="false">(Index)</a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" id="showViewDiv-tab" data-toggle="tab" href="#showViewDiv" role="tab" aria-controls="showViewDiv" aria-selected="false">View(Show)</a>
+				    <a class="nav-link" id="showViewDiv-tab" data-toggle="tab" href="#showViewDiv" role="tab" aria-controls="showViewDiv" aria-selected="false">(Show)</a>
 				  </li>
 
 				  <li class="nav-item">
-				    <a class="nav-link" id="editViewDiv-tab" data-toggle="tab" href="#editViewDiv" role="tab" aria-controls="editViewDiv" aria-selected="false">View(Edit)</a>
+				    <a class="nav-link" id="editViewDiv-tab" data-toggle="tab" href="#editViewDiv" role="tab" aria-controls="editViewDiv" aria-selected="false">(Edit)</a>
 				  </li>
 
 
@@ -208,32 +216,64 @@
 					  		</form>
 					  </div>
 					  <div class="tab-pane fade" id="controllerDiv" role="tabpanel" aria-labelledby="controllerDiv-tab">
+
 					  	<textarea id="controller_string_output"></textarea>
+					  	<label>Arquivo: &nbsp</label>
+					  	<input id="controller_path" name="controller_path" class="form-control" hidden="hidden" />
+					  	<label id="controller_path_label" name="controller_path_label" class="form-control"></label>
 					  	<p><button id="generateController" type="button" class="btn btn-info">Gerar controlador</button></p>
+					  	<p><button id="generateControllerFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+
 					  </div>
 					  <div class="tab-pane fade" id="modelDiv" role="tabpanel" aria-labelledby="modelDiv-tab">
 					  	<textarea id="model_string_output"></textarea>
+					  	<label>Arquivo: &nbsp</label>
+					  	<input id="model_path" name="model_path" class="form-control" hidden="hidden" />
+					  	<label id="model_path_label" name="model_path_label" class="form-control"></label>
 					  	<p><button id="generateModel" type="button" class="btn btn-info">Gerar model</button></p>
+					  	<p><button id="generateModelFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
 					  </div>
 					  <div class="tab-pane fade" id="requestDiv" role="tabpanel" aria-labelledby="requestDiv-tab">
 					  	<textarea id="request_string_output"></textarea>
+					  	<label>Arquivo: &nbsp</label>
+					  	<input id="request_path" name="request_path" class="form-control" hidden="hidden" />
+					  	<label id="request_path_label" name="request_path_label" class="form-control"></label>
 					  	<p><button id="generateRequest" type="button" class="btn btn-info">Gerar request</button></p>
+					  	<p><button id="generateRequestFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
 					  </div>
 					  <div class="tab-pane fade" id="createViewDiv" role="tabpanel" aria-labelledby="createViewDiv-tab">
 					  	<textarea id="createView_string_output"></textarea>
+					  	<label>Arquivo: &nbsp</label>
+					  	<input id="create_path" name="request_path" class="form-control" hidden="hidden" />
+					  	<label id="create_path_label" name="request_path_label" class="form-control"></label>
 					  	<p><button id="generateCreateView" type="button" class="btn btn-info">Gerar Create View </button></p>
+					  	<p><button id="generateCreateViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+
 					  </div>
 					  <div class="tab-pane fade" id="indexViewDiv" role="tabpanel" aria-labelledby="indexViewDiv-tab">
 					  	<textarea id="indexView_string_output"></textarea>
+					  	<label>Arquivo: &nbsp</label>
+					  	<input id="index_path" name="index_path" class="form-control" hidden="hidden" />
+					  	<label id="index_path_label" name="index_path_label" class="form-control"></label>
 					  	<p><button id="generateIndexView" type="button" class="btn btn-info">Gerar Index View </button></p>
+					  	<p><button id="generateIndexViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
 					  </div>
 					  <div class="tab-pane fade" id="showViewDiv" role="tabpanel" aria-labelledby="showViewDiv-tab">
 					  	<textarea id="showView_string_output"></textarea>
+					  	<label>Arquivo: &nbsp</label>
+					  	<input id="show_path" name="show_path" class="form-control" hidden="hidden" />
+					  	<label id="show_path_label" name="show_path_label" class="form-control"></label>
 					  	<p><button id="generateShowView" type="button" class="btn btn-info">Gerar Create View </button></p>
+					  	<p><button id="generateShowViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+
 					  </div>
 					  <div class="tab-pane fade" id="editViewDiv" role="tabpanel" aria-labelledby="editViewDiv-tab">
 					  	<textarea id="editView_string_output"></textarea>
+					  	<label>Arquivo: &nbsp</label>
+					  	<input id="edit_path" name="edit_path" class="form-control" hidden="hidden" />
+					  	<label id="edit_path_label" name="edit_path_label" class="form-control"></label>
 					  	<p><button id="generateEditView" type="button" class="btn btn-info">Gerar Edit View </button></p>
+					  	<p><button id="generateEditViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
 					  </div>
 
 
@@ -257,7 +297,7 @@
 <br>
 <!-- Modal -->
 <div id="messageModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog bg-success" role="document">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div id="modal-header" class="modal-header">
         <h5 id="modal-title" class="modal-title" id="exampleModalLabel">Êxito</h5>
@@ -274,7 +314,6 @@
     </div>
   </div>
 </div>
-
 
 
 <!-- Optional JavaScript -->

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=”pt-br”>
+<html>
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -45,7 +45,7 @@
 	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-	
+
 	<section id="myNavBar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		  <a class="navbar-brand float" href="#">Fury</a>
@@ -67,60 +67,89 @@
 		  </div>
 		</nav>
 	</section>
-
-<div class="container">
-	<div class="row">
-		<div class="col-12">
-			<h1>Inserir menu de cores</h1>
-			<h1 title="fodaci">Configuração</h1>
-			<hr>
-			<h1>Paths</h1>
-			<p>Routes: 
-				<input type="text" id="routesPath" name="routesPath" class="form-control" />
-			</p>
-
-			<p>Controller: 
-				<input type="text" id="controllerPath" name="controllerPath" class="form-control" />
-			</p>
-			<p>Model: 
-				<input type="text" id="modelPath" name="modelPath" class="form-control"	/>
-			</p>
-			<p>Request: 
-				<input type="text" id="requestPath" name="requestPath" class="form-control"/>
-			</p>
-			<p>Views: 
-				<input type="text" id="viewsPath" name="viewsPath" class="form-control" />
-			</p>
-			<hr>
-			<h1>Views</h1>
-			<h3>Nav</h3>
-			<div>		
-				<textarea id="navOutput" name="navOutput" class="form-control"></textarea>
-			</div>
-
-			<h3>Footer</h3>
-			<div>
-				<textarea id="footerOutput" name="footerOutput" class="form-control"></textarea>
-			</div>
-
-			<hr>
-			<h1>Import</h1>
-			<p>Bootstrap local <input type="checkbox" name=""></p> 
-			<p>Bootstrap cdn <input type="checkbox" name=""></p> 
-			<p>Jquery local <input type="checkbox" name=""></p> 
-			<p>Jquery cdn <input type="checkbox" name=""></p> 
-			<p>Bootstrap templates <input type="checkbox" name=""></p> 
-
-			<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveForm">
-				<input id="jsonConfigOutput" name="jsonConfigOutput" type="text"></input>
-			</form>
-
-			<button type="button" id="updateConfig">Atualizar configuração</button>
+<br>
+<br>
+<div id="" class="container">
+	<div id="" class="row">
+		
+		<div id="" class="col-12 text-center">
+			<?php
+			if ($handle = opendir('../tables')) {
+			    // echo "Manipulador de diretório: $handle\n";
+			    // echo "Arquivos:\n<br>";
+				$i = 0;
+			    /* Esta é a forma correta de varrer o diretório */
+			    while (false !== ($file = readdir($handle))) {
+			        if(strlen($file)>2){
 
 
+			        	echo "<div class='text-center border'>";
+			        	// echo "<h5  class='tableFiles showTable  text-center' role='alert'>";
+			        	echo "<button id='".$i."' type='button' class='btn btn-block btn-primary tableFiles showTable'>";
+			        	echo $file;
+			        	echo "</button>";
+			        	// echo "</h5>";
+			        	echo "<div class='hide-table' id='divTable".$i."'>";
+						echo "<p>";
+						echo "<button id='".$file."' type='button' class='btn btn-block btn-success set-name'>Alterar nome</button>";
+						echo "</p>";
+			        	echo "</div>";
+			        	echo "</div>";
+			        	// echo "</br>";
+
+			        	
+			        	// echo '</tbody>';
+
+			        	$i++;
+			        }
+
+			    }
+			}else{
+			    echo $_SERVER['REQUEST_URI'].'tables';
+			    echo $handle;
+			}
+			?>
 		</div>
 	</div>
 </div>
+	
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+ -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="form-group">
+	      <form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveForm">
+	        <input type="text" name="newFileName" id="newFileName" class="form-control" style="min-width: 100% !important" />
+	      </form>
+      </div>
+      <div class="modal-body">
+
+      	
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Descartar</button>
+        <button type="button" class="btn btn-success">Salvar alterações</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -131,17 +160,15 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
+
+
+
 </body>
-<script src="config.js"></script>
-	<script type="text/javascript">
-	</script>
+<script src="tables.js"></script>
+
 
 </html>
 
 
 
-<style type="text/css">
-	input{
-		min-width: 300px;
-	}
-</style>
+

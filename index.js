@@ -2,79 +2,86 @@ $(document).ready(function(){
 		$(".se-pre-con").fadeOut(1000);;
 
 	/*----------  Index  ----------*/
-	Index.HidingElements();
+	Index.HideElements();
 	Index.GettingJsonTableData();
 	Index.GettingJsonConfigData();
 	Index.SetingSelects();
 	Index.SetingCheckboxes();
 	Index.CreatingNewJsonFile();
-	// Index.GetingIdOnHover();
-	$("#updateJsonTable").click(Index.UpdatingAndSavingCode);
-	$("#addNewCOlumn").click(Index.AddNewColumn);
-	$(".deleteColumn").on('click', "deleteColumn",Index.DeleteColumn);
-	$("#backToTable").click(Index.BackToTable);
-
-	/*----------  Routes  ----------*/
-	$("#generateRoutes").click(Routes.GenerateRoutesString);
-	$("#generateRoutesFile").click(Routes.GenerateRoutesFile);
-
-	/*----------  Controller  ----------*/
-	$("#generateController").click(Controller.GenerateControllerString);
-
-	/*----------  Model  ----------*/
-	$("#generateModel").click(Model.GenerateModelString);
-
-	/*----------  Request  ----------*/
-	$("#generateRequest").click(Request.GenerateRequestString);
-	
-	/*----------  Views  ----------*/
-	$("#generateCreateView").click(Views.GenerateCreateView);
-	$("#generateShowView").click(Views.GenerateShowView);
-	$("#generateIndexView").click(Views.GenerateIndexView);
-	$("#generateEditView").click(Views.GenerateEditView);
-
-
-
-
-
-	$("#currentTableStatic").html(Globals.CurrentTableName);
-
-
-	$("#currentTable").on("change", function(){
-			Globals.CurrentTableName = "../tables/"+ $("#currentTable").val();
-			$("#currentTableStatic").html(Globals.CurrentTableName);			
-			Index.GettingJsonTableData();
-			Index.SetingSelects();
-			Index.SetingCheckboxes();
-	});
-
-
-
-
-
+	Index.GetingIdOnHover();
+	Index.StartApp();
 });
 
 var Globals = {
 	CurrentTableName :"../tables/"+ $("#currentTable").val(),
-	tableName : $("#tableName").val(),
-	tableSingular : $("#tableSingular").val(),
-	tablePlural : $("#tablePlural").val(),
 	current_table_path : $("#currentTableStatic").html(),
 	totalColumns : $("#totalColumns").html(),
 };
+var Index = {
+	StartApp:function(){
+			// Index.GetingIdOnHover();
+			// $("#updateJsonTable").click(Index.UpdatingAndSavingCode);
+			$("#updateJsonTable").on("click", Index.UpdatingAndSavingCode);
+			// $("#addNewCOlumn").click(Index.AddNewColumn);
+			$("#addNewCOlumn").on("click", Index.AddNewColumn);
+			$(".deleteColumn").on("click", "deleteColumn",Index.DeleteColumn);
+			// $("#backToTable").click(Index.BackToTable);
+			$("#backToTable").on("click", Index.BackToTable);
+
+			/*----------  Routes  ----------*/
+			// $("#generateRoutes").click(Routes.GenerateRoutesString);
+			$("#generateRoutes").on("click",Routes.GenerateRoutesString);
+			// $("#generateRoutesFile").click(Routes.GenerateRoutesFile);
+			$("#generateRoutesFile").on("click", Routes.GenerateRoutesFile);
+
+			/*----------  Controller  ----------*/
+			// $("#generateController").click(Controller.GenerateControllerString);
+			$("#generateController").on("click", Controller.GenerateControllerString);
+
+			/*----------  Model  ----------*/
+			// $("#generateModel").click(Model.GenerateModelString);
+			$("#generateModel").on("click", Model.GenerateModelString);
+
+			/*----------  Request  ----------*/
+			// $("#generateRequest").click(Request.GenerateRequestString);
+			$("#generateRequest").on("click", Request.GenerateRequestString);
+			
+			/*----------  Views  ----------*/
+			// $("#generateCreateView").click(Views.GenerateCreateView);
+			$("#generateCreateView").on("click", Views.GenerateCreateView);
+			// $("#generateShowView").click(Views.GenerateShowView);
+			$("#generateShowView").on("click", Views.GenerateShowView);
+			// $("#generateIndexView").click(Views.GenerateIndexView);
+			$("#generateIndexView").on("click", Views.GenerateIndexView);
+			// $("#generateEditView").click(Views.GenerateEditView);
+			$("#generateEditView").on("click", Views.GenerateEditView);
 
 
-var Index ={
-	HidingElements:function(){
+			$("#currentTableStatic").html(Globals.CurrentTableName);
+			// $("#tableNameLabel").html($("#tableName").val());
+
+		 	//    $('body').on('click','#tableName',function(){
+			//       alert($(this).attr('id'));
+			// }); 
+			$("#currentTable").on("change", function(){
+					Globals.CurrentTableName = "../tables/"+ $("#currentTable").val();
+					$("#currentTableStatic").html(Globals.CurrentTableName);			
+					Index.GettingJsonTableData();
+					Index.SetingSelects();
+					Index.SetingCheckboxes();
+			});
+
+			// console.log("ok");
+	},
+	HideElements:function(){
 		$("#jsonTableOutPut").hide();
 		$("#tutorialJson").hide();
 		$("#lastId").hide();
 		$("#lastIdSpan").hide();
 		$("#codeGenerator").hide();
-		$("#totalColumnsSpan").hide();
-		$("#totalColumns").hide();
-		$("#totalColumnsInput").hide();
-		$("#mainAlertDiv").hide();
+		$("#hiddenLabels").hide();
+		// $("#totalColumns").hide();
+		// $("#totalColumnsInput").hide();
 	},
 	GettingJsonTableData:function(){
 
@@ -135,14 +142,24 @@ var Index ={
 		        // lastId++;
 		        // alert(lastId);
 			}
-			$("#totalColumns").html(totalColumns);
-			$("#totalColumnsInput").val(totalColumns);
+			// $("#table_name_label").html(myObj.table_name);
+			// $("#table_singular_label").html(myObj.singular);
+			// $("#table_plural_label").html(myObj.plural);
+			// $("#totalColumnsInput").val(totalColumns);
 			// console.log(fieldsList);
 			$("#fields").html(fieldsList);
+			// $(fieldsList).appendTo("#fields");
 			$("#tableName").val(myObj.table_name);
 			$("#tableSingular").val(myObj.singular);
 			$("#tablePlural").val(myObj.plural);
 			$("#lastId").html(lastId);
+
+			$("#table_name_label").html($("#tableName").val());
+			$("#table_singular_label").html($("#tableSingular").val());
+			$("#table_plural_label").html($("#tablePlural").val());
+			$("#totalColumns").html(totalColumns);
+
+
 		});
 	},
 	GettingJsonConfigData(){
@@ -151,6 +168,22 @@ var Index ={
 		  // alert(data.controller_path);
 		  $("#routes_path").val(data.routes_path);
 		  $("#routes_path_label").html(data.routes_path);
+		  $("#controller_path").val(data.controller_path);
+		  $("#controller_path_label").html(data.controller_path);
+		  $("#model_path").html(data.model_path);
+		  $("#model_path_label").html(data.model_path);
+		  $("#request_path").html(data.request_path);
+		  $("#request_path_label").html(data.request_path);
+		  $("#create_path").html(data.views_path);
+		  $("#create_path_label").html(data.views_path);
+		  $("#index_path").html(data.views_path);
+		  $("#index_path_label").html(data.views_path);
+		  $("#show_path_label").html(data.views_path);
+		  $("#show_path_label").html(data.views_path);
+		  $("#edit_path_label").html(data.views_path);
+		  $("#edit_path_label").html(data.views_path);
+
+
 		});
 	},
 	SetingSelects:function(){
@@ -169,7 +202,8 @@ var Index ={
 				// alert(myObj.fields[i].migration_type);
 			}
 		});
-	},SetingCheckboxes:function(){
+	},
+	SetingCheckboxes:function(){
 		
 		let currentTable = Globals.CurrentTableName;
 
@@ -311,21 +345,15 @@ var Index ={
 
 		$("#totalColumns").html(newTotalColumns);
 		$("#fields").append(newColumnHtml);
-		// Index.CreatingNewJsonFile();
 	},
 	DeleteColumn:function(objButton){
-		    // alert(objButton.id);
 		    let idColum= objButton.id;
-		    // console.log("Deletando coluna: " + idColum);
-		    
 
 		    $( "#divColumn"+idColum+"" ).remove();
 
 		    let newTotalColumns = $("#totalColumns").html();
 			newTotalColumns = parseInt(newTotalColumns) -1;
 			$("#totalColumns").html(newTotalColumns);
-		    // Index.CreatingNewJsonFile();
-
 	},
 	BackToTable:function(){
 		$("#codeGenerator").slideUp("slow");
@@ -341,15 +369,8 @@ var Index ={
 		  success: function(data){
 		  	$("#codeGenerator").slideDown("slow");
 		  	$("#tableSection").slideUp("slow");
-		    // alert(data);
+
 		    console.log(data);
-		    // $('#success').html("<div class='alert alert-success'>");
-		    // $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-		    //   .append("</button>");
-		    // $('#success > .alert-success')
-		    //   .append("<strong>Your message has been sent. </strong>");
-		    // $('#success > .alert-success')
-		    //   .append('</div>');
 		  },
 		  error: function(data){
 		    // console.log("Fail...");
@@ -362,6 +383,10 @@ var Index ={
 		$("*").mouseover(function(){
 			$(this).attr('title',$(this).attr('id'));
 		});
+		$("*").on("click",function(){
+			console.log(Globals.tableName);
+		});
+
 	}
 };
 var Message = {
