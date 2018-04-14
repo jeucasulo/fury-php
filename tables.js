@@ -17,9 +17,23 @@ $(document).ready(function(){
 			// alert($(this).attr("id"));
 			let newFileNameVar = $(this).attr("id");
 			$("#newFileName").val(newFileNameVar);
+			$("#oldFileName").val(newFileNameVar);
 			$("#exampleModal").modal("show");
 			
 		});
+
+		$("#createNewTableModalBtn").click(function(){
+			// alert($(this).attr("id"));
+			$("#createNewTableModal").modal("show");
+			
+		});
+
+
+
+		//
+		//
+		$("#saveNewTableName").click(Tables.SaveNewTableName);
+		$("#createNewTable").click(Tables.CreateNewTable);
 		
 });
 
@@ -32,6 +46,9 @@ var Tables = {
 		let iterator = 0;
 		$.each($(".tableFiles"), function( index, value ) {
 		  let fileName = $(this).html();
+
+		//concatantes the .json extension in the stringFileName so it can be read and found by its real file name on the direcotry
+		  fileName = fileName+".json"; 
 		  // console.log( index + ": " + fileName );
 		  
 
@@ -96,6 +113,48 @@ var Tables = {
 		});
 
 
+
+	},
+	SaveNewTableName:function(){
+		// alert("sdfsadf");
+		var formData = $("#saveForm").serialize();
+		$.ajax({
+		  data:  formData, //data to be send
+		  type: "POST",
+		  url: "save-json.php",
+		  
+		  success: function(data){
+		    console.log("Success...");
+		    alert(data);
+		    location.reload();
+
+		  },
+		  error: function(data){
+		    console.log("Fail...");
+		    console.log(data);
+		  }
+		});
+
+	},
+	CreateNewTable:function(){
+		// alert("CreateNewTable");
+		var formData = $("#createTable").serialize();
+		$.ajax({
+		  data:  formData, //data to be send
+		  type: "POST",
+		  url: "save-json.php",
+		  
+		  success: function(data){
+		    console.log("Success...");
+		    alert(data);
+		    location.reload();
+
+		  },
+		  error: function(data){
+		    console.log("Fail...");
+		    console.log(data);
+		  }
+		});
 
 	}
 };

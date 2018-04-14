@@ -26,6 +26,15 @@
 		$routes = new Routes();
 		$routes->UpdateRoutes();
 	}
+	if(isset($_POST['newFileName'])){
+		echo "atualizando...";
+		$tables = new Tables();
+		$tables->ChangeTableFileName();
+	}
+	if(isset($_POST['newTable'])) {
+		$tables = new Tables();
+		$tables->CreateNewTable();
+	}
 
 
 	class Index{
@@ -128,6 +137,61 @@
 			}
 
 		}
+	}
+	class Tables{
+		public function ChangeTableFileName(){
+
+			$tableDir = "../tables/";
+			$oldTableName = $_POST['oldFileName'];
+			$newTableName = $_POST['newFileName'];
+
+			$oldTableName = $this->CleanString($oldTableName);
+			$newTableName = $this->CleanString($newTableName);
+			
+			$oldTableName = $tableDir.$oldTableName;
+			$newTableName = $tableDir.$newTableName;
+
+			$oldTableName = $oldTableName.".json";
+			$newTableName = $newTableName.".json";
+
+			echo $oldTableName;
+			echo "\n";
+			echo $newTableName;
+
+			rename($oldTableName, $newTableName);
+
+		}
+		public function CreateNewTable(){
+			
+			// echo "CreateNewTable";
+			$tableDir = "../tables/";
+			$fileName = $tableDir.$_POST['newTable'].".json";
+
+
+			$myObj = new stdClass();
+			$myObj->table_name = "Usuario";
+			$myObj->singular = "usuario";
+			$myObj->plural = "usuarios";
+			$myObj->current_table_path = $fileName;
+			
+			// https://stackoverflow.com/questions/15810257/create-nested-json-object-in-php
+			
+			// echo gettype($myObj);
+
+			// $myJSON = json_encode($myObj);
+
+			$fp = fopen($fileName, 'w');
+			fwrite($fp, json_encode($myObj));
+			fclose($fp);
+
+		}
+		public function CleanString($string) {
+		   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+		   $string = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$string);
+
+		   return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+		}
+
 	}
 	
 	

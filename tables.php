@@ -72,6 +72,14 @@
 <br>
 <div id="" class="container">
 	<div id="" class="row">
+		<div id="" class="col-12">
+			<button id="createNewTableModalBtn" class="btn btn-block btn-info">Criar nova tabela</button>
+		</div>
+	</div>
+</div>
+<br>
+<div id="" class="container">
+	<div id="" class="row">
 		
 		<div id="" class="col-12 text-center">
 			<?php
@@ -83,6 +91,7 @@
 			    while (false !== ($file = readdir($handle))) {
 			        if(strlen($file)>2){
 
+			        	$file = str_replace(".json","",$file); //hides the .json extension
 
 			        	echo "<div class='text-center border'>";
 			        	// echo "<h5  class='tableFiles showTable  text-center' role='alert'>";
@@ -125,14 +134,17 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Insira o novo nome </h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="form-group">
 	      <form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveForm">
+	        <input type="text" name="oldFileName" id="oldFileName" class="form-control sr-only" style="min-width: 100% !important" />
 	        <input type="text" name="newFileName" id="newFileName" class="form-control" style="min-width: 100% !important" />
+	        <p class='text-danger text-center'>Não use caracteres especiais!</p>
 	      </form>
       </div>
       <div class="modal-body">
@@ -142,11 +154,47 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Descartar</button>
-        <button type="button" class="btn btn-success">Salvar alterações</button>
+        <button id="saveNewTableName" type="button" class="btn btn-success">Salvar alterações</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+<!-- Modal -->
+
+<div class="modal fade" id="createNewTableModal" tabindex="-1" role="dialog" aria-labelledby="createNewTableModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createNewTableModalLabel">Nome da nova tabela</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="form-group">
+	      <form enctype=”multipart/form-data” method="POST" action="save-json.php" id="createTable">
+	        <input type="text" name="newTable" id="newTable" class="form-control" style="min-width: 100% !important" />
+	        <p class='text-danger text-center'>Não use caracteres especiais!</p>
+	      </form>
+      </div>
+      <div class="modal-body">
+
+      	
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Descartar</button>
+        <button id="createNewTable" type="button" class="btn btn-success">Criar tabela</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 

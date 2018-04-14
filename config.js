@@ -1,16 +1,11 @@
 $(document).ready(function(){
 	$(".se-pre-con").fadeOut(1000);;
 
-
 	Index.GetingJsonData();
 	Index.GetingIdOnMouseOver();
 	$("#updateConfig").click(Index.CreateAndSaveJsonFile);
+	$(".resetBtn").click(Index.ResetDefaultValue);
 
-	$(".resetBtn").click(function(){
-		let currentString = $(this).parent().parent().find('div').first().find("input");
-		let defaultString = $(this).parent().parent().find('div').first().next().next().find("label").html();
-		currentString.val(defaultString);
-	});
 });
 
 var Index = {
@@ -85,6 +80,11 @@ var Index = {
 	CreateAndSaveJsonFile(){
 		Index.CreatingJsonConfigString();
 		Index.SavingConfigJsonFile();
+	},
+	ResetDefaultValue:function(){
+		let currentString = $(this).parent().parent().find('div').first().find("input");
+		let defaultString = $(this).parent().parent().find('div').first().next().next().find("label").html();
+		currentString.val(defaultString);
 	},
 	SavingConfigJsonFile:function(){
 		var formData = $("#saveForm").serialize();
