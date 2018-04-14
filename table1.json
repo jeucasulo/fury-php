@@ -4,8 +4,9 @@
 	"plural":"pacientes",
 	"current_table_path":"../tables/table1.json",
 	"fields":[
-			{"id":1,"display_name":"Id","html_name":"id","html_type":"text","migration_type":"varchar","nullable":"true","create_view_visibility":"false","index_view_visibility":"true","show_view_visibility":"true","edit_view_visibility":"false","index":"none","default":"auto-increment"},
+			{"id":1,"display_name":"Id","html_name":"id","html_type":"number","migration_type":"integer","nullable":"true","create_view_visibility":"false","index_view_visibility":"true","show_view_visibility":"true","edit_view_visibility":"false","index":"PK","default":"auto-increment"},
 			{"id":2,"display_name":"Nome","html_name":"nome","html_type":"text","migration_type":"varchar","nullable":"false","create_view_visibility":"true","index_view_visibility":"true","show_view_visibility":"true","edit_view_visibility":"true","index":"none","default":""},
-			{"id":3,"display_name":"Data de nascimento","html_name":"birthday_date","html_type":"text","migration_type":"varchar","nullable":"false","create_view_visibility":"true","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"true","index":"none","default":""}
+			{"id":3,"display_name":"Data de nascimento","html_name":"birthday_date","html_type":"text","migration_type":"varchar","nullable":"true","create_view_visibility":"true","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"true","index":"none","default":""},
+			{"id":6,"display_name":"column5","html_name":"","html_type":"text","migration_type":"varchar","nullable":"false","create_view_visibility":"false","index_view_visibility":"false","show_view_visibility":"false","edit_view_visibility":"false","index":"none","default":""}
 	]
 }

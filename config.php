@@ -45,6 +45,7 @@
 	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
+<div class="se-pre-con"></div>
 	
 	<section id="myNavBar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -67,61 +68,147 @@
 		  </div>
 		</nav>
 	</section>
-
+<br>
+<div id="" class="container-fluid text-center">
+	<div id="" class="row ">
+		<div id="" class="col-12">
+			
+			<h3 class="text-muted">Diretórios</h3>
+<hr>
+		</div>
+	</div>
+</div>
+<br>
 <div class="container">
 	<div class="row">
 		<div class="col-12">
-			<h1>Inserir menu de cores</h1>
+<!-- 			<h1>Inserir menu de cores</h1>
 			<h1 title="fodaci">Configuração</h1>
 			<hr>
-			<h1>Paths</h1>
+ -->			
+
+		
 			<p>Routes: 
-				<input type="text" id="routesPath" name="routesPath" class="form-control" />
+				<div class="row">
+					<div class="col-sm"><input type="text" id="routesPath" name="routesPath" class="form-control" /></div>
+					<div class="col-sm"><button id="resetRoutes" class="btn btn-primary resetBtn">Restaurar padrão</button></div>
+					<div class="col-sm sr-only"><label id="defaultRoutesPath"></label></div>
+				</div>
 			</p>
 
 			<p>Controller: 
-				<input type="text" id="controllerPath" name="controllerPath" class="form-control" />
+
+				<div class="row">
+					<div class="col-sm"><input type="text" id="controllerPath" name="controllerPath" class="form-control" /></div>
+					<div class="col-sm"><button id="resetRoutes" class="btn btn-primary resetBtn">Restaurar padrão</button></div>
+					<div class="col-sm sr-only"><label id="defaultControllerPath"></label></div>
+				</div>
+
+				<!-- <input type="text" id="controllerPath" name="controllerPath" class="form-control" />
+				Padrão: &nbsp<label id="defaultControllerPath"></label> -->
 			</p>
 			<p>Model: 
-				<input type="text" id="modelPath" name="modelPath" class="form-control"	/>
+
+				<div class="row">
+					<div class="col-sm"><input type="text" id="modelPath" name="modelPath" class="form-control" /></div>
+					<div class="col-sm"><button id="resetRoutes" class="btn btn-primary resetBtn">Restaurar padrão</button></div>
+					<div class="col-sm sr-only"><label id="defaultModelPath"></label></div>
+				</div>
+
+<!-- 				<input type="text" id="modelPath" name="modelPath" class="form-control"	/>
+				Padrão: &nbsp<label id="defaultModelPath"></label>
+ -->
 			</p>
 			<p>Request: 
-				<input type="text" id="requestPath" name="requestPath" class="form-control"/>
+
+				<div class="row">
+					<div class="col-sm"><input type="text" id="requestPath" name="requestPath" class="form-control" /></div>
+					<div class="col-sm"><button id="resetRoutes" class="btn btn-primary resetBtn">Restaurar padrão</button></div>
+					<div class="col-sm sr-only"><label id="defaultRequestPath"></label></div>
+				</div>
+
+<!-- 				<input type="text" id="requestPath" name="requestPath" class="form-control"/>
+				Padrão: &nbsp<label id="defaultRequestPath"></label>
+ -->			
 			</p>
-			<p>Views: 
-				<input type="text" id="viewsPath" name="viewsPath" class="form-control" />
+			<p>Views:
+
+				<div class="row">
+					<div class="col-sm"><input type="text" id="viewsPath" name="viewsPath" class="form-control" /></div>
+					<div class="col-sm"><button id="resetRoutes" class="btn btn-primary resetBtn">Restaurar padrão</button></div>
+					<div class="col-sm sr-only"><label id="defaultViewsPath"></label></div>
+				</div>
+
+<!-- 				<input type="text" id="viewsPath" name="viewsPath" class="form-control" />
+				Padrão: &nbsp<label id="defaultViewsPath"></label>
+ -->			
 			</p>
-			<hr>
-			<h1>Views</h1>
-			<h3>Nav</h3>
+			<!-- <h1 class="text-center">Views</h1> -->
+
+
+			
+		</div>
+	</div>
+</div>
+
+<br>
+<div id="" class="container-fluid text-center">
+	<div id="" class="row ">
+		<div id="" class="col-12">
+<hr>			
+			<h3 class="text-muted">Views</h3>
+<hr>
+		</div>
+	</div>
+</div>
+<br>
+
+
+<div id="" class="container">
+	<div id="" class="row">
+		<div id="" class="col-12">
+
+			<h4 class="text-muted">Nav</h4>
 			<div>		
 				<textarea id="navOutput" name="navOutput" class="form-control"></textarea>
 			</div>
-
-			<h3>Footer</h3>
+<br>
+			<h4 class="text-muted">Footer</h4>
 			<div>
 				<textarea id="footerOutput" name="footerOutput" class="form-control"></textarea>
 			</div>
 
-			<hr>
+<!-- 			<hr>
 			<h1>Import</h1>
 			<p>Bootstrap local <input type="checkbox" name=""></p> 
 			<p>Bootstrap cdn <input type="checkbox" name=""></p> 
 			<p>Jquery local <input type="checkbox" name=""></p> 
 			<p>Jquery cdn <input type="checkbox" name=""></p> 
 			<p>Bootstrap templates <input type="checkbox" name=""></p> 
-
-			<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveForm">
-				<input id="jsonConfigOutput" name="jsonConfigOutput" type="text"></input>
-			</form>
-
-			<button type="button" id="updateConfig">Atualizar configuração</button>
+ -->
 
 
 		</div>
 	</div>
 </div>
+<br>
+<br>
+<div id="" class="container-fluid text-center">
+	<div id="" class="row">
+		<div id="" class="col-12">
+			<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveForm">
+				<input id="jsonConfigOutput" name="jsonConfigOutput" type="text" class="sr-only"></input>
+			</form>
+			
 
+			<button type="button" id="updateConfig" class="btn btn-success">Atualizar configuração</button>
+
+
+		</div>
+	</div>
+</div>
+<br>
+<br>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -144,4 +231,6 @@
 	input{
 		min-width: 300px;
 	}
+
+
 </style>

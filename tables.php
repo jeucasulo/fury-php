@@ -45,6 +45,7 @@
 	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
+<div class="se-pre-con"></div>
 
 	<section id="myNavBar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">

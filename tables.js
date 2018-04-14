@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+		$(".se-pre-con").fadeOut(1000);;
+
 		Tables.HideElements();
 
 		Tables.GetTables();
