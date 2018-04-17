@@ -10,6 +10,13 @@ $(document).ready(function(){
 	Index.CreatingNewJsonFile();
 	Index.GetingIdOnHover();
 	Index.StartApp();
+
+
+	// $("#generateControllerFile").click(function(){
+	// 	alert("sadf");
+	// });
+	$("#generateControllerFile").click(Controller.GenerateControllerFile);
+	$("#generateModelFile").click(Controller.GenerateControllerFile);
 });
 
 var Globals = {
@@ -170,13 +177,13 @@ var Index = {
 		  $("#routes_path_label").html(data.routes_path);
 		  $("#controller_path").val(data.controller_path);
 		  $("#controller_path_label").html(data.controller_path);
-		  $("#model_path").html(data.model_path);
+		  $("#model_path").val(data.model_path);
 		  $("#model_path_label").html(data.model_path);
-		  $("#request_path").html(data.request_path);
+		  $("#request_path").val(data.request_path);
 		  $("#request_path_label").html(data.request_path);
-		  $("#create_path").html(data.views_path);
+		  $("#create_path").val(data.views_path);
 		  $("#create_path_label").html(data.views_path);
-		  $("#index_path").html(data.views_path);
+		  $("#index_path").val(data.views_path);
 		  $("#index_path_label").html(data.views_path);
 		  $("#show_path_label").html(data.views_path);
 		  $("#show_path_label").html(data.views_path);
@@ -534,6 +541,39 @@ var Controller = {
 		$("#controller_string_output").val(controllerOutuputJs);
 
 	},
+	GenerateControllerFile:function(){
+
+		// var currentForm = $(this).closest("form").attr('id');
+		var currentForm = $(this).closest("form");
+		console.log(currentForm.attr("id"));
+
+		// var formData = $("#saveControllerFile").serialize();
+		var formData = currentForm.serialize();
+
+		// alert("foi");
+		$.ajax({
+		  data:  formData, //data to be send
+		  type: "POST",
+		  url: "save-json.php",
+
+	  	
+
+
+		  
+		  success: function(data){
+		  	// $("#codeGenerator").slideDown("slow");
+		  	// $("#tableSection").slideUp("slow");
+		    console.log("Done...");
+		    console.log(data);
+		  },
+		  error: function(data){
+		    console.log("Fail...");
+		    console.log(data);
+		  }
+		  
+		});
+
+	}
 };
 var Model = {
 	GenerateModelString:function(){

@@ -35,10 +35,27 @@
 		$tables = new Tables();
 		$tables->CreateNewTable();
 	}
+	if(isset($_POST['dirPath'])){
+		$dirPath = $_POST['dirPath'];
+
+		$dirPath = array_filter($dirPath, function($item) {
+		  return $item != null;
+		});
+
+		$dirPath = implode("", $dirPath);
+		
+		if (file_exists($dirPath)) {
+		    echo "\n\nO arquivo $dirPath existe";
+		} else {
+		    echo "\n\nO arquivo $dirPath não existe";
+		}
+
+	}
+
 
 
 	class Index{
-		public function  UpdateTable(){
+		public function UpdateTable(){
 			if(isset($_POST['jsonTableOutPut'])){
 
 					$response = $_POST['jsonTableOutPut'];
@@ -173,6 +190,49 @@
 			$myObj->singular = "usuario";
 			$myObj->plural = "usuarios";
 			$myObj->current_table_path = $fileName;
+			// $myObj->fields = ["id"=>"1"];
+			$myObj->fields = array(
+				array("id"=>"1",
+					"display_name"=>"Id",
+					"html_name"=>"id",
+					"html_type"=>"number",
+					"migration_type"=>"integer",
+					"nullable"=>"true",
+					"create_view_visibility"=>"false",
+					"index_view_visibility"=>"true",
+					"show_view_visibility"=>"true",
+					"edit_view_visibility"=>"false",
+					"index"=>"PK","default"=>"auto-increment")
+			);
+
+			// $json = json_encode(array(
+			//      	"table_name" => "tableName",
+			//         "singular" => "1.0",
+			//         "plural" => "xxxxxx",
+			//         "current_table_path" => "1.0",
+			//         "fields" => array(
+			//         	"id"=>1,
+			//         	"display_name"=>"Id",
+			//         	"html_name"=>"id",
+			//         	"html_type"=>"number",
+			//         	"migration_type"=>"integer",
+			//         	"nullable"=>"true",
+			//         	"create_view_visibility"=>"false",
+			//         	"index_view_visibility"=>"true",
+			//         	"show_view_visibility"=>"true",
+			//         	"show_view_visibility"=>"true",
+			//         	"edit_view_visibility"=>"true",
+			//         	"index"=>"PK",
+			//         	"default"=>"auto-increment"
+			//         ),
+			     
+			// ));
+			
+			// $json = json_encode($json, JSON_PRETTY_PRINT);
+			// $json = str_replace("\n,"\\n",$json);
+
+			echo json_encode($myObj);
+
 			
 			// https://stackoverflow.com/questions/15810257/create-nested-json-object-in-php
 			
@@ -180,9 +240,16 @@
 
 			// $myJSON = json_encode($myObj);
 
+
+
+			// echo($myJsonString);
+			// $myJsonString = json_decode($myJsonString);
+
 			$fp = fopen($fileName, 'w');
 			fwrite($fp, json_encode($myObj));
 			fclose($fp);
+			// 
+
 
 		}
 		public function CleanString($string) {

@@ -86,3 +86,12 @@ Route::get('/crud/paciente/edit/{id}', ['uses' => 'PacienteController@edit', 'as
 Route::put('/crud/paciente/update/{id}', ['uses' => 'PacienteController@update', 'as' => 'cruds.paciente.update']);
 Route::get('/crud/paciente/destroy/{id}', ['uses' => 'PacienteController@destroy', 'as' => 'cruds.paciente.destroy']);
 /*---------- BLOCK Paciente CRUD----------*/
+/*---------- BLOCK Usuario CRUD----------*/
+Route::get('/crud/usuario', ['uses' => 'UsuarioController@index', 'as' => 'cruds.usuario.index']);
+Route::get('/crud/usuario/show/{id}', ['uses' => 'UsuarioController@show', 'as' => 'cruds.usuario.show']);
+Route::get('/crud/usuario/create', ['uses' => 'UsuarioController@create', 'as' => 'cruds.usuario.create']);
+Route::post('/crud/usuario/store', ['uses' => 'UsuarioController@store', 'as' => 'cruds.usuario.store']);
+Route::get('/crud/usuario/edit/{id}', ['uses' => 'UsuarioController@edit', 'as' => 'cruds.usuario.edit']);
+Route::put('/crud/usuario/update/{id}', ['uses' => 'UsuarioController@update', 'as' => 'cruds.usuario.update']);
+Route::get('/crud/usuario/destroy/{id}', ['uses' => 'UsuarioController@destroy', 'as' => 'cruds.usuario.destroy']);
+/*---------- BLOCK Usuario CRUD----------*/

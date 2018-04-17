@@ -216,22 +216,26 @@
 					  		</form>
 					  </div>
 					  <div class="tab-pane fade" id="controllerDiv" role="tabpanel" aria-labelledby="controllerDiv-tab">
+							<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveControllerFile">
+							  	<textarea id="controller_string_output"></textarea>
+							  	<label>Arquivo: &nbsp</label>
+							  	<input id="controller_path" name="dirPath[]" class="form-control" hidden="hidden" />
+							  	<label id="controller_path_label" name="controller_path_label" class="form-control"></label>
 
-					  	<textarea id="controller_string_output"></textarea>
-					  	<label>Arquivo: &nbsp</label>
-					  	<input id="controller_path" name="controller_path" class="form-control" hidden="hidden" />
-					  	<label id="controller_path_label" name="controller_path_label" class="form-control"></label>
-					  	<p><button id="generateController" type="button" class="btn btn-info">Gerar controlador</button></p>
-					  	<p><button id="generateControllerFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
-
+							  	<p><button id="generateController" type="button" class="btn btn-info">Gerar controlador</button></p>
+							  	<p><button id="generateControllerFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  		</form>
 					  </div>
 					  <div class="tab-pane fade" id="modelDiv" role="tabpanel" aria-labelledby="modelDiv-tab">
-					  	<textarea id="model_string_output"></textarea>
-					  	<label>Arquivo: &nbsp</label>
-					  	<input id="model_path" name="model_path" class="form-control" hidden="hidden" />
-					  	<label id="model_path_label" name="model_path_label" class="form-control"></label>
-					  	<p><button id="generateModel" type="button" class="btn btn-info">Gerar model</button></p>
-					  	<p><button id="generateModelFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveModelFile">
+						  	<textarea id="model_string_output"></textarea>
+						  	<label>Arquivo: &nbsp</label>
+						  	<input id="model_path" name="dirPath[]" class="form-control" hidden="hidden" />
+						  	<label id="model_path_label" name="model_path_label" class="form-control"></label>
+						  	<p><button id="generateModel" type="button" class="btn btn-info">Gerar model</button></p>
+						  	<p><button id="generateModelFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+				  		</form>
+
 					  </div>
 					  <div class="tab-pane fade" id="requestDiv" role="tabpanel" aria-labelledby="requestDiv-tab">
 					  	<textarea id="request_string_output"></textarea>
@@ -330,7 +334,6 @@
 
 </body>
 <script src="index.js"></script>
-
 
 </html>
 
