@@ -95,3 +95,12 @@ Route::get('/crud/usuario/edit/{id}', ['uses' => 'UsuarioController@edit', 'as' 
 Route::put('/crud/usuario/update/{id}', ['uses' => 'UsuarioController@update', 'as' => 'cruds.usuario.update']);
 Route::get('/crud/usuario/destroy/{id}', ['uses' => 'UsuarioController@destroy', 'as' => 'cruds.usuario.destroy']);
 /*---------- BLOCK Usuario CRUD----------*/
+/*---------- BLOCK Funcionario CRUD----------*/
+Route::get('/crud/funcionario', ['uses' => 'FuncionarioController@index', 'as' => 'cruds.funcionario.index']);
+Route::get('/crud/funcionario/show/{id}', ['uses' => 'FuncionarioController@show', 'as' => 'cruds.funcionario.show']);
+Route::get('/crud/funcionario/create', ['uses' => 'FuncionarioController@create', 'as' => 'cruds.funcionario.create']);
+Route::post('/crud/funcionario/store', ['uses' => 'FuncionarioController@store', 'as' => 'cruds.funcionario.store']);
+Route::get('/crud/funcionario/edit/{id}', ['uses' => 'FuncionarioController@edit', 'as' => 'cruds.funcionario.edit']);
+Route::put('/crud/funcionario/update/{id}', ['uses' => 'FuncionarioController@update', 'as' => 'cruds.funcionario.update']);
+Route::get('/crud/funcionario/destroy/{id}', ['uses' => 'FuncionarioController@destroy', 'as' => 'cruds.funcionario.destroy']);
+/*---------- BLOCK Funcionario CRUD----------*/

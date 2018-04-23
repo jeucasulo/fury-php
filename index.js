@@ -15,8 +15,14 @@ $(document).ready(function(){
 	// $("#generateControllerFile").click(function(){
 	// 	alert("sadf");
 	// });
-	$("#generateControllerFile").click(Controller.GenerateControllerFile);
-	$("#generateModelFile").click(Controller.GenerateControllerFile);
+	$("#generateControllerFile").click(Controller.GenerateItemFile);
+	$("#generateModelFile").click(Controller.GenerateItemFile);
+	$("#generateRequestFile").click(Controller.GenerateItemFile);
+	
+	$("#generateCreateViewFile").click(Controller.GenerateItemFile);
+	$("#generateIndexViewFile").click(Controller.GenerateItemFile);
+	$("#generateShowViewFile").click(Controller.GenerateItemFile);
+	$("#generateEditViewFile").click(Controller.GenerateItemFile);
 });
 
 var Globals = {
@@ -166,6 +172,9 @@ var Index = {
 			$("#table_plural_label").html($("#tablePlural").val());
 			$("#totalColumns").html(totalColumns);
 
+		  	
+
+
 
 		});
 	},
@@ -185,12 +194,10 @@ var Index = {
 		  $("#create_path_label").html(data.views_path);
 		  $("#index_path").val(data.views_path);
 		  $("#index_path_label").html(data.views_path);
+		  $("#show_path").val(data.views_path);
 		  $("#show_path_label").html(data.views_path);
-		  $("#show_path_label").html(data.views_path);
+		  $("#edit_path").val(data.views_path);
 		  $("#edit_path_label").html(data.views_path);
-		  $("#edit_path_label").html(data.views_path);
-
-
 		});
 	},
 	SetingSelects:function(){
@@ -235,6 +242,18 @@ var Index = {
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
 		let current_table_path = $("#currentTableStatic").html();
+
+		$("#controller_name").val(tableName+"Controller");
+		$("#model_name").val(tableName);
+		$("#request_name").val(tableName+"Request");
+		
+		$("input[name^='viewCrudName']").val(tableName);
+
+		$("#create_name").val("create.blade");
+		$("#index_name").val("index.blade");
+		$("#show_name").val("show.blade");
+		$("#edit_name").val("edit.blade");
+
 		let totalColumns = $("#totalColumns").html();
 		let newJsonFile = "{ | \n\t";
 		newJsonFile += "\"table_name\":\""+tableName+"\", | \n\t";
@@ -290,6 +309,8 @@ var Index = {
 
 			console.log(newJsonFile);
 			$("#jsonTableOutPut").val(newJsonFile);
+
+			// let tableName = $("#tableName").val();
 	},
 	UpdatingAndSavingCode:function(){
 		Index.CreatingNewJsonFile();
@@ -367,6 +388,9 @@ var Index = {
 		$("#tableSection").slideDown("slow");
 	},
 	SavingNewJsonFile:function(){
+
+		
+
 		var formData = $("#saveForm").serialize();
 		$.ajax({
 		  data:  formData, //data to be send
@@ -541,8 +565,8 @@ var Controller = {
 		$("#controller_string_output").val(controllerOutuputJs);
 
 	},
-	GenerateControllerFile:function(){
-
+	GenerateItemFile:function(){
+		console.log("GenerateItemFile");
 		// var currentForm = $(this).closest("form").attr('id');
 		var currentForm = $(this).closest("form");
 		console.log(currentForm.attr("id"));

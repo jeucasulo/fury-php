@@ -36,19 +36,71 @@
 		$tables->CreateNewTable();
 	}
 	if(isset($_POST['dirPath'])){
+
+		// $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
 		$dirPath = $_POST['dirPath'];
+		$fileName = $_POST['fileName'];
 
 		$dirPath = array_filter($dirPath, function($item) {
 		  return $item != null;
 		});
 
+		$viewCrudName = implode("|",$_POST['viewCrudName']);
+
+
+		// $dirPath = $actual_link .  implode("", $dirPath);
 		$dirPath = implode("", $dirPath);
-		
-		if (file_exists($dirPath)) {
-		    echo "\n\nO arquivo $dirPath existe";
-		} else {
-		    echo "\n\nO arquivo $dirPath não existe";
+		$fileName = implode("", $fileName);
+
+		// $myPath = getcwd()."/app/http/controllers"; // é pasta
+		if(isset($_POST['viewCrudName'])){
+			$myPath = getcwd().$dirPath."/".$viewCrudName; // é pasta
+			echo "its a crud name!\n\n";
+		}else{
+			$myPath = getcwd().$dirPath; // é pasta
+			echo "isnt a crud name at all sorry\n\n";
+
 		}
+		$myPath2 = getcwd()."//app/http/controllers"; // é pasta
+		$myPathHttpHoster = "http://$_SERVER[HTTP_HOST]";
+		$myPathRequestURI = "$_SERVER[REQUEST_URI]";
+		
+		// echo "dirPath: \t\t" . $dirPath;
+		// echo "\n";
+		// echo "getcwd: \t\t" . getcwd();
+		// echo "\n";
+		// echo "myPath: \t\t" . $myPath;
+		// echo "\n";
+		// echo "myPath2: \t\t" . $myPath2;
+		// echo "\n";
+		// echo "myPathHttpHoster: \t\t". $myPathHttpHoster;
+		// echo "\n";
+		// echo "myPathRequestURI: \t\t". $myPathRequestURI;
+		// echo "\n";
+		print_r($_POST);
+
+		if(is_dir($myPath)){
+			echo "\n\nPasta '$myPath' existe\n\n";
+		}else{
+			echo "\n\nPasta '$myPath' não existia mas foi criada\n\n";
+			mkdir($myPath, 0777, true);
+
+		}
+
+
+
+
+		$content = implode("",$_POST['contentToWriteFile']);
+		// $myfile = fopen("app/fodaci.php", "w") or die("Unable to open file!");
+		// $myfile = fopen("app/".$fileName.".php", "w") or die("Unable to open file!");
+	
+		$myfile = fopen($myPath."/".$fileName.".php", "w") or die("Unable to open file!");
+		$txt = $content;
+		fwrite($myfile, $txt);
+		fclose($myfile);
+
+    // echo json_encode($response);
 
 	}
 

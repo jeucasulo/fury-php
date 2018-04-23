@@ -216,21 +216,22 @@
 					  		</form>
 					  </div>
 					  <div class="tab-pane fade" id="controllerDiv" role="tabpanel" aria-labelledby="controllerDiv-tab">
-							<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveControllerFile">
-							  	<textarea id="controller_string_output"></textarea>
-							  	<label>Arquivo: &nbsp</label>
-							  	<input id="controller_path" name="dirPath[]" class="form-control" hidden="hidden" />
-							  	<label id="controller_path_label" name="controller_path_label" class="form-control"></label>
-
-							  	<p><button id="generateController" type="button" class="btn btn-info">Gerar controlador</button></p>
-							  	<p><button id="generateControllerFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
-					  		</form>
+						<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveControllerFile">
+						  	<textarea id="controller_string_output" name="contentToWriteFile[]"></textarea>
+						  	<label>Arquivo: &nbsp</label>
+						  	<input id="controller_path" name="dirPath[]" class="form-control" hidden="hidden" />
+						  	<input id="controller_name" name="fileName[]" class="form-control" hidden="hidden"  />
+						  	<label id="controller_path_label" name="controller_path_label" class="form-control"></label>
+						  	<p><button id="generateController" type="button" class="btn btn-info">Gerar controlador</button></p>
+						  	<p><button id="generateControllerFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+				  		</form>
 					  </div>
 					  <div class="tab-pane fade" id="modelDiv" role="tabpanel" aria-labelledby="modelDiv-tab">
 					  	<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveModelFile">
-						  	<textarea id="model_string_output"></textarea>
+						  	<textarea id="model_string_output" name="contentToWriteFile[]"></textarea>
 						  	<label>Arquivo: &nbsp</label>
 						  	<input id="model_path" name="dirPath[]" class="form-control" hidden="hidden" />
+						  	<input id="model_name" name="fileName[]" class="form-control" hidden="hidden" />
 						  	<label id="model_path_label" name="model_path_label" class="form-control"></label>
 						  	<p><button id="generateModel" type="button" class="btn btn-info">Gerar model</button></p>
 						  	<p><button id="generateModelFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
@@ -238,53 +239,68 @@
 
 					  </div>
 					  <div class="tab-pane fade" id="requestDiv" role="tabpanel" aria-labelledby="requestDiv-tab">
-					  	<textarea id="request_string_output"></textarea>
-					  	<label>Arquivo: &nbsp</label>
-					  	<input id="request_path" name="request_path" class="form-control" hidden="hidden" />
-					  	<label id="request_path_label" name="request_path_label" class="form-control"></label>
-					  	<p><button id="generateRequest" type="button" class="btn btn-info">Gerar request</button></p>
-					  	<p><button id="generateRequestFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveRequestFile">
+						  	<textarea id="request_string_output" name="contentToWriteFile[]"></textarea>
+						  	<label>Arquivo: &nbsp</label>
+						  	<input id="request_path" name="dirPath[]" class="form-control" hidden="hidden" />
+						  	<input id="request_name" name="fileName[]" class="form-control" hidden="hidden" />
+						  	<label id="request_path_label" name="request_path_label" class="form-control"></label>
+						  	<p><button id="generateRequest" type="button" class="btn btn-info">Gerar request</button></p>
+						  	<p><button id="generateRequestFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+				  		</form>
 					  </div>
 					  <div class="tab-pane fade" id="createViewDiv" role="tabpanel" aria-labelledby="createViewDiv-tab">
-					  	<textarea id="createView_string_output"></textarea>
-					  	<label>Arquivo: &nbsp</label>
-					  	<input id="create_path" name="request_path" class="form-control" hidden="hidden" />
-					  	<label id="create_path_label" name="request_path_label" class="form-control"></label>
-					  	<p><button id="generateCreateView" type="button" class="btn btn-info">Gerar Create View </button></p>
-					  	<p><button id="generateCreateViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveCreateFile">
+						  	<textarea id="createView_string_output" name="contentToWriteFile[]"></textarea>
+						  	<label>Arquivo: &nbsp</label>
+						  	<input id="viewCrudName" name="viewCrudName[]" class="form-control" hidden="hidden" />
+						  	<input id="create_path" name="dirPath[]" class="form-control"  />
+						  	<input id="create_name" name="fileName[]" class="form-control"  />
+						  	<label id="create_path_label" name="request_path_label" class="form-control"></label>
+						  	<p><button id="generateCreateView" type="button" class="btn btn-info">Gerar Create View </button></p>
+						  	<p><button id="generateCreateViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+				  		</form>
+
 
 					  </div>
 					  <div class="tab-pane fade" id="indexViewDiv" role="tabpanel" aria-labelledby="indexViewDiv-tab">
-					  	<textarea id="indexView_string_output"></textarea>
-					  	<label>Arquivo: &nbsp</label>
-					  	<input id="index_path" name="index_path" class="form-control" hidden="hidden" />
-					  	<label id="index_path_label" name="index_path_label" class="form-control"></label>
-					  	<p><button id="generateIndexView" type="button" class="btn btn-info">Gerar Index View </button></p>
-					  	<p><button id="generateIndexViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveIndexFile">
+						  	<textarea id="indexView_string_output" name="contentToWriteFile[]"></textarea>
+						  	<label>Arquivo: &nbsp</label>
+						  	<input id="viewCrudName" name="viewCrudName[]" class="form-control"  hidden="hidden" />
+						  	<input id="index_path" name="dirPath[]" class="form-control" hidden="hidden" />
+						  	<input id="index_name" name="fileName[]" class="form-control" hidden="hidden" />
+						  	<label id="index_path_label" name="index_path_label" class="form-control"></label>
+						  	<p><button id="generateIndexView" type="button" class="btn btn-info">Gerar Index View </button></p>
+						  	<p><button id="generateIndexViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	</form>
 					  </div>
 					  <div class="tab-pane fade" id="showViewDiv" role="tabpanel" aria-labelledby="showViewDiv-tab">
-					  	<textarea id="showView_string_output"></textarea>
-					  	<label>Arquivo: &nbsp</label>
-					  	<input id="show_path" name="show_path" class="form-control" hidden="hidden" />
-					  	<label id="show_path_label" name="show_path_label" class="form-control"></label>
-					  	<p><button id="generateShowView" type="button" class="btn btn-info">Gerar Create View </button></p>
-					  	<p><button id="generateShowViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveShowFile">
+						  	<textarea id="showView_string_output" name="contentToWriteFile[]"></textarea>
+						  	<label>Arquivo: &nbsp</label>
+						  	<input id="viewCrudName" name="viewCrudName[]" class="form-control"  hidden="hidden" />
+						  	<input id="show_path" name="dirPath[]" class="form-control" hidden="hidden" />
+						  	<input id="show_name" name="fileName[]" class="form-control" hidden="hidden" />
+						  	<label id="show_path_label" name="show_path_label" class="form-control"></label>
+						  	<p><button id="generateShowView" type="button" class="btn btn-info">Gerar Create View </button></p>
+						  	<p><button id="generateShowViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	</form>
 
 					  </div>
 					  <div class="tab-pane fade" id="editViewDiv" role="tabpanel" aria-labelledby="editViewDiv-tab">
-					  	<textarea id="editView_string_output"></textarea>
-					  	<label>Arquivo: &nbsp</label>
-					  	<input id="edit_path" name="edit_path" class="form-control" hidden="hidden" />
-					  	<label id="edit_path_label" name="edit_path_label" class="form-control"></label>
-					  	<p><button id="generateEditView" type="button" class="btn btn-info">Gerar Edit View </button></p>
-					  	<p><button id="generateEditViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	<form enctype=”multipart/form-data” method="POST" action="save-json.php" id="saveEditFile">
+						  	<textarea id="editView_string_output" name="contentToWriteFile[]"></textarea>
+						  	<label>Arquivo: &nbsp</label>
+						  	<input id="viewCrudName" name="viewCrudName[]" class="form-control"  hidden="hidden" />
+						  	<input id="edit_path" name="dirPath[]" class="form-control" hidden="hidden" />
+						  	<input id="edit_name" name="fileName[]" class="form-control" hidden="hidden" />
+						  	<label id="edit_path_label" name="edit_path_label" class="form-control"></label>
+						  	<p><button id="generateEditView" type="button" class="btn btn-info">Gerar Edit View </button></p>
+						  	<p><button id="generateEditViewFile" type="button" class="btn btn-success">Gerar arquivo</button></p>
+					  	</form>
 					  </div>
-
-
-
-
 				</div>
-
 			</div>
 		</div>
 
