@@ -128,7 +128,7 @@
 						<span>Plural: </span><input type="text" id="tablePlural" name="tablePlural" class='form-control-sm' />&nbsp&nbsp&nbsp&nbsp
 						Arquivo:<label id="currentTableStatic"></label>
 						&nbsp&nbsp&nbsp&nbsp
-						<button type="button" id="addNewCOlumn" class="btn btn-info float-sm-right">Adicionar coluna</button>
+						<button type="button" id="addNewCOlumn" class="btn btn-info float-sm-right">+ Coluna</button>
 
 						<hr>
 						<div id="header_fields" class="row text-center">

@@ -110,11 +110,11 @@
 		public function UpdateTable(){
 			if(isset($_POST['jsonTableOutPut'])){
 
+					
 					$response = $_POST['jsonTableOutPut'];
 					
 					$response = str_replace(" | " , "\n", $response);
 
-					// print_r(gettype($response));
 
 					$responseStringToJsonConvert = json_decode($response, true);
 
@@ -126,6 +126,8 @@
 
 					fwrite($fp, $response); 
 					fclose($fp);
+
+					print_r($response);
 				    // header("Location: ".$_SERVER['HTTP_REFERER'].""); // return for the last page
 			}else{
 				echo "not found";

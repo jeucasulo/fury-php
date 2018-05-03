@@ -115,18 +115,90 @@ var Index = {
 			    fieldsList += "<div class='col-custom'><select id='html_type" + [i] + "' name='html_type" + [i] + "'  class='totalColumns form-control-sm'>"+
 										    "<option value='text'>text</option>" +
 										    "<option value='checkbox'>checkbox</option>" +
+										    "<option value='radio'>radio</option>" +
 										    "<option value='number'>number</option>" +
 										    "<option value='image'>image</option>" +
 										    "<option value='email'>email</option>" +
 										    "<option value='password'>password</option>" +
+										    "<option value='file'>file</option>" +
+										    "<option value='range'>range</option>" +
+										    "<option value='' disabled><hr></option>" + // disabled
+										    "<option value='color'>color</option>"+
+										    "<option value='date'>date</option>"+
+										    "<option value='datetime-local'>datetime</option>"+
+										    "<option value='email'>email</option>"+
+										    "<option value='month'>month</option>"+
+										    "<option value='range'>range</option>"+
+										    "<option value='search'>search</option>"+
+										    "<option value='tel'>tel</option>"+
+										    "<option value='time'>time</option>"+
+										    "<option value='url'>url</option>"+
+										    "<option value='week'>week</option>"+
+										    "<option value='' disabled><hr></option>" + // disabled
+										    "<option value='hidden'>hidden</option>" + 
+										    "<option value='button'>button</option>" + 
+										    "<option value='reset'>reset</option>" + 
+										    "<option value='submit'>submit</option>" + 
 									    "</select></div>";
-			    fieldsList += "<div class='col-custom'><select id='migration_type" + [i] + "' name='migration_type" + [i] + "' class='form-control-sm'>" +
-									        "<option value='varchar'>varchar</option>" +
-									        "<option value='integer'>integer</option>" +
-									        "<option value='date'>date</option>" +
-									        "<option value='image'>image</option>" +
-									        "<option value='boolean'>boolean</option>" +
-									        "<option value='checkbox'>checkbox</option>" +
+			    fieldsList += "<div class='col-custom'><select id='migration_type" + [i] + "' name='migration_type" + [i] + "' class='form-control-sm' style='width:100px'>" +
+											"<option value='binary'>binary</option>"+
+											"<option value='boolean'>boolean</option>"+
+											"<option value='char'>char</option>"+
+											"<option value='date'>date</option>"+
+											"<option value='dateTime'>dateTime</option>"+
+											"<option value='decimal'>decimal</option>"+
+											"<option value='double'>double</option>"+
+											"<option value='float'>float</option>"+
+											"<option value='increments'>increments</option>"+
+											"<option value='integer'>integer</option>"+
+											"<option value='json'>json</option>"+
+											"<option value='rememberToken'>rememberToken</option>"+
+											"<option value='string'>string</option>"+
+											"<option value='text'>text</option>"+
+											"<option value='time'>time</option>"+
+											"<option value='timestamps'>timestamps</option>"+
+											"<option value='year'>year</option>"+
+											"<option value='' disabled><hr></option>"+ // disabled
+											"<option value='bigIncrements'>bigIncrements</option>"+
+											"<option value='bigInteger'>bigInteger</option>"+
+											"<option value='dateTimeTz'>dateTimeTz</option>"+
+											"<option value='enum'>enum</option>"+
+											"<option value='geometry'>geometry</option>"+
+											"<option value='geometryCollection'>geometryCollection</option>"+
+											"<option value='ipAddress'>ipAddress</option>"+
+											"<option value='jsonb'>jsonb</option>"+
+											"<option value='lineString'>lineString</option>"+
+											"<option value='longText'>longText</option>"+
+											"<option value='macAddress'>macAddress</option>"+
+											"<option value='mediumIncrements'>mediumIncrements</option>"+
+											"<option value='mediumInteger'>mediumInteger</option>"+
+											"<option value='mediumText'>mediumText</option>"+
+											"<option value='morphs'>morphs</option>"+
+											"<option value='multiLineString'>multiLineString</option>"+
+											"<option value='multiPoint'>multiPoint</option>"+
+											"<option value='multiPolygon'>multiPolygon</option>"+
+											"<option value='nullableMorphs'>nullableMorphs</option>"+
+											"<option value='nullableTimestamps'>nullableTimestamps</option>"+
+											"<option value='point'>point</option>"+
+											"<option value='polygon'>polygon</option>"+
+											"<option value='smallIncrements'>smallIncrements</option>"+
+											"<option value='smallInteger'>smallInteger</option>"+
+											"<option value='softDeletes'>softDeletes</option>"+
+											"<option value='softDeletesTz'>softDeletesTz</option>"+
+											"<option value='timeTz'>timeTz</option>"+
+											"<option value='timestamp'>timestamp</option>"+
+											"<option value='timestampTz'>timestampTz</option>"+
+											"<option value='timestampsTz'>timestampsTz</option>"+
+											"<option value='tinyIncrements'>tinyIncrements</option>"+
+											"<option value='tinyInteger'>tinyInteger</option>"+
+											"<option value='unsignedBigInteger'>unsignedBigInteger</option>"+
+											"<option value='unsignedDecimal'>unsignedDecimal</option>"+
+											"<option value='unsignedInteger'>unsignedInteger</option>"+
+											"<option value='unsignedMediumInteger'>unsignedMediumInteger</option>"+
+											"<option value='unsignedSmallInteger'>unsignedSmallInteger</option>"+
+											"<option value='unsignedTinyInteger'>unsignedTinyInteger</option>"+
+											"<option value='uuid'>uuid</option>"+
+
 								        "</select></div>";
 		        fieldsList += "<div class='col-custom-sm'><input type='checkbox' id='nullable" + [i] + "' name='nullable" + [i] + "' value='" + myObj.fields[i].nullable + "'  class='form-control-sm' /> </div>";
 		        fieldsList += "<div class='col-custom'>"+
@@ -307,7 +379,7 @@ var Index = {
 			newJsonFile += "\t] | \n";
 			newJsonFile += "}";
 
-			console.log(newJsonFile);
+			// console.log(newJsonFile);
 			$("#jsonTableOutPut").val(newJsonFile);
 
 			// let tableName = $("#tableName").val();
@@ -326,21 +398,93 @@ var Index = {
 	    		newColumnHtml += "<div class='columnDiv row text-center' id='divColumn"+newColumnId+"'>";
 			    newColumnHtml += "<div class='col-custom'><input type='text' id='display_name" + newColumnId + "' name='display_name" + newColumnId + "' value='column"+newColumnId+"' class='totalColumns form-control-sm' /></div>";
 			    newColumnHtml += "<div class='col-custom'><input type='text' id='html_name" + newColumnId + "' name='html_name" + newColumnId + "' value='' class='totalColumns form-control-sm' /> </div>";
-			    newColumnHtml += "<div class='col-custom'><select id='html_type" + newColumnId + "' name='html_type" + newColumnId + "'  class='totalColumns form-control-sm'>"+
+			    newColumnHtml += "<div class='col-custom'><select id='html_type" + newColumnId + "' name='html_type" + newColumnId + "'  class='totalColumns form-control-sm' style='width:100px'>"+
 										    "<option value='text'>text</option>" +
 										    "<option value='checkbox'>checkbox</option>" +
+										    "<option value='radio'>radio</option>" +
 										    "<option value='number'>number</option>" +
 										    "<option value='image'>image</option>" +
 										    "<option value='email'>email</option>" +
 										    "<option value='password'>password</option>" +
+										    "<option value='file'>file</option>" +
+										    "<option value='range'>range</option>" +
+										    "<option value='' disabled><hr></option>" + // disabled
+										    "<option value='color'>color</option>"+
+										    "<option value='date'>date</option>"+
+										    "<option value='datetime-local'>datetime</option>"+
+										    "<option value='email'>email</option>"+
+										    "<option value='month'>month</option>"+
+										    "<option value='range'>range</option>"+
+										    "<option value='search'>search</option>"+
+										    "<option value='tel'>tel</option>"+
+										    "<option value='time'>time</option>"+
+										    "<option value='url'>url</option>"+
+										    "<option value='week'>week</option>"+
+										    "<option value='' disabled><hr></option>" + // disabled
+										    "<option value='hidden'>hidden</option>" + 
+										    "<option value='button'>button</option>" + 
+										    "<option value='reset'>reset</option>" + 
+										    "<option value='submit'>submit</option>" + 
 									    "</select></div>";
 			    newColumnHtml += "<div class='col-custom'><select id='migration_type" + newColumnId + "' name='migration_type" + newColumnId + "' class='form-control-sm'>" +
-									        "<option value='varchar'>varchar</option>" +
-									        "<option value='integer'>integer</option>" +
-									        "<option value='date'>date</option>" +
-									        "<option value='image'>image</option>" +
-									        "<option value='boolean'>boolean</option>" +
-									        "<option value='checkbox'>checkbox</option>" +
+									        "<option value='binary'>binary</option>"+
+											"<option value='boolean'>boolean</option>"+
+											"<option value='char'>char</option>"+
+											"<option value='date'>date</option>"+
+											"<option value='dateTime'>dateTime</option>"+
+											"<option value='decimal'>decimal</option>"+
+											"<option value='double'>double</option>"+
+											"<option value='float'>float</option>"+
+											"<option value='increments'>increments</option>"+
+											"<option value='integer'>integer</option>"+
+											"<option value='json'>json</option>"+
+											"<option value='rememberToken'>rememberToken</option>"+
+											"<option value='string'>string</option>"+
+											"<option value='text'>text</option>"+
+											"<option value='time'>time</option>"+
+											"<option value='timestamps'>timestamps</option>"+
+											"<option value='year'>year</option>"+
+											"<option value='' disabled><hr></option>"+ // disabled
+											"<option value='bigIncrements'>bigIncrements</option>"+
+											"<option value='bigInteger'>bigInteger</option>"+
+											"<option value='dateTimeTz'>dateTimeTz</option>"+
+											"<option value='enum'>enum</option>"+
+											"<option value='geometry'>geometry</option>"+
+											"<option value='geometryCollection'>geometryCollection</option>"+
+											"<option value='ipAddress'>ipAddress</option>"+
+											"<option value='jsonb'>jsonb</option>"+
+											"<option value='lineString'>lineString</option>"+
+											"<option value='longText'>longText</option>"+
+											"<option value='macAddress'>macAddress</option>"+
+											"<option value='mediumIncrements'>mediumIncrements</option>"+
+											"<option value='mediumInteger'>mediumInteger</option>"+
+											"<option value='mediumText'>mediumText</option>"+
+											"<option value='morphs'>morphs</option>"+
+											"<option value='multiLineString'>multiLineString</option>"+
+											"<option value='multiPoint'>multiPoint</option>"+
+											"<option value='multiPolygon'>multiPolygon</option>"+
+											"<option value='nullableMorphs'>nullableMorphs</option>"+
+											"<option value='nullableTimestamps'>nullableTimestamps</option>"+
+											"<option value='point'>point</option>"+
+											"<option value='polygon'>polygon</option>"+
+											"<option value='smallIncrements'>smallIncrements</option>"+
+											"<option value='smallInteger'>smallInteger</option>"+
+											"<option value='softDeletes'>softDeletes</option>"+
+											"<option value='softDeletesTz'>softDeletesTz</option>"+
+											"<option value='timeTz'>timeTz</option>"+
+											"<option value='timestamp'>timestamp</option>"+
+											"<option value='timestampTz'>timestampTz</option>"+
+											"<option value='timestampsTz'>timestampsTz</option>"+
+											"<option value='tinyIncrements'>tinyIncrements</option>"+
+											"<option value='tinyInteger'>tinyInteger</option>"+
+											"<option value='unsignedBigInteger'>unsignedBigInteger</option>"+
+											"<option value='unsignedDecimal'>unsignedDecimal</option>"+
+											"<option value='unsignedInteger'>unsignedInteger</option>"+
+											"<option value='unsignedMediumInteger'>unsignedMediumInteger</option>"+
+											"<option value='unsignedSmallInteger'>unsignedSmallInteger</option>"+
+											"<option value='unsignedTinyInteger'>unsignedTinyInteger</option>"+
+											"<option value='uuid'>uuid</option>"+
+
 								        "</select></div>";
 		        newColumnHtml += "<div class='col-custom-sm'><input type='checkbox' id='nullable" + newColumnId + "' name='nullable" + newColumnId + "' value=''  class='form-control-sm' /> </div>";
 		        newColumnHtml += "<div class='col-custom'>"+
@@ -386,6 +530,8 @@ var Index = {
 	BackToTable:function(){
 		$("#codeGenerator").slideUp("slow");
 		$("#tableSection").slideDown("slow");
+		$("#routes_string_output,#controller_string_output, #model_string_output, #request_string_output").val("");
+		$("#createView_string_output,#indexView_string_output, #showView_string_output, #editView_string_output").val("");
 	},
 	SavingNewJsonFile:function(){
 
@@ -398,6 +544,7 @@ var Index = {
 		  url: "save-json.php",
 		  
 		  success: function(data){
+		  	// alert("foi");
 		  	$("#codeGenerator").slideDown("slow");
 		  	$("#tableSection").slideUp("slow");
 
@@ -415,7 +562,7 @@ var Index = {
 			$(this).attr('title',$(this).attr('id'));
 		});
 		$("*").on("click",function(){
-			console.log(Globals.tableName);
+			// console.log(Globals.tableName);
 		});
 
 	}
@@ -478,10 +625,14 @@ var Controller = {
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
 		let totalColumns = $("#totalColumns").html();
+		let controllerPath = $("#controller_path_label").html().replace(/[/]/g,"\\");
+
+		// alert($("#model_path_label").html());
 
 		let controllerOutputPhp = "";
 		// controllerOutputPhp += "§"; 
-		controllerOutputPhp += "<\?php \n§namespace App\\Http\\Controllers; \n§use Illuminate\\Http\\Request;\n§use App\\Http\\Requests;  "; 
+		// controllerOutputPhp += "<\?php \n§namespace App\\Http\\Controllers; \n§use Illuminate\\Http\\Request;\n§use App\\Http\\Requests;  "; 
+		controllerOutputPhp += "<\?php \n§namespace "+controllerPath+"; \n§use Illuminate\\Http\\Request;\n§use App\\Http\\Requests;  "; 
 		controllerOutputPhp += "\r\n§\n§class "+tableName+"Controller extends Controller\n§{";
 		
 		//index
@@ -568,36 +719,38 @@ var Controller = {
 	GenerateItemFile:function(){
 		console.log("GenerateItemFile");
 		// var currentForm = $(this).closest("form").attr('id');
-		var currentForm = $(this).closest("form");
-		console.log(currentForm.attr("id"));
+		var currentForm = $(this).closest("form"); // find the closest item in this form // gets the form ids
+		var textArea = $('form').find('*').filter(':input:visible:first'); // find the closest item in this form // gets the textarea ids
+		if (textArea.val()=="") {
+			alert("Você precisa primeiro gerar o script");
+		}else{
+			// alert("agora sim");
+			console.log(currentForm.attr("id"));
+			// var formData = $("#saveControllerFile").serialize();
+			var formData = currentForm.serialize();
+			// alert("foi");
+			$.ajax({
+			  data:  formData, //data to be send
+			  type: "POST",
+			  url: "save-json.php",
+			  success: function(data){
+			  	// $("#codeGenerator").slideDown("slow");
+			  	// $("#tableSection").slideUp("slow");
+			    console.log("Done...");
+			    console.log(data);
+			  },
+			  error: function(data){
+			    console.log("Fail...");
+			    console.log(data);
+			  }
+			});
 
-		// var formData = $("#saveControllerFile").serialize();
-		var formData = currentForm.serialize();
+		}
 
-		// alert("foi");
-		$.ajax({
-		  data:  formData, //data to be send
-		  type: "POST",
-		  url: "save-json.php",
-
-	  	
-
-
-		  
-		  success: function(data){
-		  	// $("#codeGenerator").slideDown("slow");
-		  	// $("#tableSection").slideUp("slow");
-		    console.log("Done...");
-		    console.log(data);
-		  },
-		  error: function(data){
-		    console.log("Fail...");
-		    console.log(data);
-		  }
-		  
-		});
 
 	}
+
+
 };
 var Model = {
 	GenerateModelString:function(){
@@ -605,6 +758,8 @@ var Model = {
 		let tableSingular = $("#tableSingular").val();
 		let tablePlural = $("#tablePlural").val();
 		let totalColumns = $("#totalColumns").html();
+		let modelPath = $("#model_path_label").html().replace(/[/]/g,"\\");
+
 		let html_name = "";
 		let modelOutputPhp = "";
 
@@ -612,7 +767,8 @@ var Model = {
 
 	    modelOutputPhp+="<\?php";
 	    modelOutputPhp+=" \n § ";
-	    modelOutputPhp+=" \n §namespace App\\Models;";
+	    // modelOutputPhp+=" \n §namespace App\\Models;";
+	    modelOutputPhp+=" \n §namespace "+modelPath+";";
 	    modelOutputPhp+=" \n § ";
 	    modelOutputPhp+=" \n § use Illuminate\\Database\\Eloquent\\Model;";
 	    modelOutputPhp+=" \n § ";
@@ -658,12 +814,15 @@ var Request = {
 	GenerateRequestString(){
 	    let tableName = $("#tableName").val();
 	    let totalColumns = $("#totalColumns").html();
+		let requestPath = $("#request_path_label").html().replace(/[/]/g,"\\");
+
 
 	    let requestStringPhp = "";
 
 	    requestStringPhp+="<\?php";
 	    requestStringPhp+=" \n § ";
-	    requestStringPhp+=" \n § namespace App\\Http\\Requests;";
+	    // requestStringPhp+=" \n § namespace App\\Http\\Requests;";
+	    requestStringPhp+=" \n § namespace "+requestPath+";";
 	    requestStringPhp+=" \n § ";
 	    requestStringPhp+=" \n § use Illuminate\\Foundation\\Http\\FormRequest;";
 	    requestStringPhp+=" \n § ";
@@ -741,39 +900,57 @@ var Views = {
 	    let totalColumns = $("#totalColumns").html();
 
 	    let createViewStringPhp = "";
+
+	    createViewStringPhp += "@\extends('layouts.app') \n |";
+	    createViewStringPhp += "@\section('title','Create') \n |";
+	    createViewStringPhp += "@\section('content') \n | ";
+
+	    
+	    createViewStringPhp +="\n §<div class='container'>";
+	    createViewStringPhp +="\n §<div class='row'>";
+	    createViewStringPhp +="\n §<div class='col-md-10 col-md-offset-1'>";
+	    createViewStringPhp +="\n §<div class='panel panel-default'>";
+	    createViewStringPhp +="\n §<div class='panel-body'>";
+	    createViewStringPhp +="\n §<div class='col-md-12'>";
+
 	    createViewStringPhp +="\n §<form id='saveForm' class='form-horizontal' role='form' method='POST' action='{\{route(\"cruds."+tableSingular+".store\")}}' enctype='multipart/form-data'>";
 	    createViewStringPhp +="\n §{\{ csrf_field() }\}";
 
+
 	    for (var i = 0; i < totalColumns; i++) {
+	    	
 
 	    	let display_name = $("#display_name"+i).val();
+	    	alert(display_name);
 	    	let html_name = $("#html_name"+i).val();
 	    	let html_type = $("#html_type"+i).val();
 	    	let migration_type = $("#migration_type"+i).val();
 	    	let nullable = $("#nullable"+i).val();
 	    	let create_view_visibility = $("#create_view_visibility"+i).is(":checked");
 	    	let defaults = $("#default"+i).val();
+
+	    	console.log("\n\n\nlooping "+i+" : \n"+createViewStringPhp);
+	    	console.log("display_name "+i+" : \n"+display_name);
     	
-	    	if (create_view_visibility) {
-	            createViewStringPhp +="\n §<!-- --------------------------------"+display_name+"-------------------------------- -->\n §";
-	            createViewStringPhp +="<div class='form-group{\{ $errors->has(\""+html_name+"\") ? \" has-error\" : \"\" }}'>";
-	            createViewStringPhp +="\n §\t";
-	            createViewStringPhp +="<label for='"+html_name+"' class='col-md-4 control-label'>"+display_name+"</label>";
-	            createViewStringPhp +="\n §\t";
-	            createViewStringPhp +="<div class='col-md-6'>";
-	            createViewStringPhp +="\n §\t\t";
-	            createViewStringPhp +="<input id='"+html_name+"' type='"+html_type+"' class='form-control' name='"+html_name+"' placeholder='"+html_type+"/"+migration_type+"'>";
-	            createViewStringPhp +="\n §\t\t";
-	            createViewStringPhp +="@\if ($errors->has(\""+html_name+"\"))";
-	            createViewStringPhp +="\n §\t\t\t";
-	            createViewStringPhp +="<span class='help-block'>\n §\t\t\t\t <strong>{\{ $errors->first(\""+html_name+"\") }}</strong>\n §\t\t\t </span>";
-	            createViewStringPhp +="\n §\t\t";
-	            createViewStringPhp +="@\endif \n §\t</div>\n §</div>";
-	            createViewStringPhp +="\n §<!-- --------------------------------/"+display_name+"-------------------------------- -->\n §";
-            }else{
-            	createViewStringPhp =+ "";
-            	// totalColumns++;
-            }
+	    	
+		    	if (create_view_visibility) {
+		    		console.log("if 2");
+		            createViewStringPhp +="\n §<!-- --------------------------------"+display_name+"-------------------------------- -->\n §";
+		            createViewStringPhp +="<div class='form-group{\{ $errors->has(\""+html_name+"\") ? \" has-error\" : \"\" }}'>";
+		            createViewStringPhp +="\n §\t";
+		            createViewStringPhp +="<label for='"+html_name+"' class='col-md-4 control-label'>"+display_name+"</label>";
+		            createViewStringPhp +="\n §\t";
+		            createViewStringPhp +="<div class='col-md-6'>";
+		            createViewStringPhp +="\n §\t\t";
+		            createViewStringPhp +="<input id='"+html_name+"' type='"+html_type+"' class='form-control' name='"+html_name+"' placeholder='"+html_type+"/"+migration_type+"'>";
+		            createViewStringPhp +="\n §\t\t";
+		            createViewStringPhp +="@\if ($errors->has(\""+html_name+"\"))";
+		            createViewStringPhp +="\n §\t\t\t";
+		            createViewStringPhp +="<span class='help-block'>\n §\t\t\t\t <strong>{\{ $errors->first(\""+html_name+"\") }}</strong>\n §\t\t\t </span>";
+		            createViewStringPhp +="\n §\t\t";
+		            createViewStringPhp +="@\endif \n §\t</div>\n §</div>";
+		            createViewStringPhp +="\n §<!-- --------------------------------/"+display_name+"-------------------------------- -->\n §";
+	            }
 	    }
 
 	    createViewStringPhp +="\n §<div class='form-group'>";
@@ -787,7 +964,6 @@ var Views = {
 	    createViewStringJs = createViewStringPhp.replace(/[§]/g,"");
 
 	    $("#createView_string_output").val(createViewStringJs);
-
 	},
 	GenerateIndexView:function(){
 		let col_id = "id";
@@ -797,6 +973,8 @@ var Views = {
 		let totalColumns = $("#totalColumns").html();
 
 		indexViewStringPhp = "";
+
+
 
 		//horizontal
 		indexViewStringPhp += "\n §<!-- horizontal -->\n § \n §";
@@ -961,9 +1139,9 @@ var Views = {
 	    editViewStringPhp +="\n §<div class='panel panel-default'>";
 	    editViewStringPhp +="\n §<div class='panel-body'>";
 	    editViewStringPhp +="\n §<div class='col-md-12'>";
-	    //editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\'cruds.user.update\', "+"$"+singular+"->id)}}' enctype='multipart/form-data'>";
-	    //editViewStringPhp +="\n §<input type='hidden' name='_method' value='put'>";
-	    //editViewStringPhp +="\n §{\{ csrf_field() }\}";
+	    editViewStringPhp +="\n §<form id='updateForm' class='form-horizontal' role='form' method='POST' action='{\{route(\'cruds.user.update\', "+"$"+tableSingular+"->id)}}' enctype='multipart/form-data'>";
+	    editViewStringPhp +="\n §<input type='hidden' name='_method' value='put'>";
+	    editViewStringPhp +="\n §{\{ csrf_field() }\}";
 
 
 
